@@ -47312,3 +47312,52 @@ pre {
   min-width: 220px;
   z-index: 9999;
 }
+
+/* service deatiies word in tickmark */
+/* More space between left & right columns (desktop) */
+/* Force two columns for steps list */
+@media (min-width: 992px) {
+  .worldclass-steps {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 126px;
+    align-items: start;
+  }
+
+  .worldclass-steps li {
+    break-inside: avoid;
+  }
+}
+
+/* Banner overlay blocks clicks - fix */
+.dz-bnr-inr.overlay-secondary-middle::before,
+.dz-bnr-inr.overlay-secondary-middle::after {
+  pointer-events: none;
+}
+
+.dz-bnr-inr .dz-bnr-inr-entry {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* ✅ Dropdown: remove extra underline coming from wrapper */
+.form-floating.floating-underline.input-light .bs-select {
+  border: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+/* ✅ Keep only ONE underline on the toggle */
+.form-floating.floating-underline.input-light .bs-select .dropdown-toggle {
+  box-shadow: none !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* ✅ Remove yellow focus line (keep same white/normal line) */
+.form-floating.floating-underline.input-light .bs-select .dropdown-toggle:focus,
+.form-floating.floating-underline.input-light .form-control:focus {
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: none !important;
+}

@@ -76,6 +76,15 @@ export type HeaderItem = {
 /* =========================
    SERVICES (SOURCE)
 ========================= */
+export type WorldClassItem = { title: string };
+
+export type VideoItem = {
+  id: number;
+  delay: string;
+  image: any; // fallback image if thumbnail fails
+  videoUrl: string; // dynamic link
+};
+
 export type ServiceItem = {
   id: number;
   title: string;
@@ -85,7 +94,15 @@ export type ServiceItem = {
   icon: LucideIcon;
   services: string[];
   image?: any;
+
+  worldclassByCategory?: Record<string, WorldClassItem[]>;
+
+  // ✅ NEW
+  videosByCategory?: Record<string, VideoItem[]>;
 };
+
+// ✅ SAME VIDEO FOR NOW (as you asked)
+const DEFAULT_YT = "https://www.youtube.com/watch?v=W5Dm2WCk8jg";
 
 export const serviceboxdata: ServiceItem[] = [
   {
@@ -97,7 +114,54 @@ export const serviceboxdata: ServiceItem[] = [
     icon: Scale,
     services: ["Surgical Balloon", "Smart Balloon", "Munjaro sessions", "Slimming"],
     image: IMAGES.bloggrid2,
+
+    worldclassByCategory: {
+      "surgical-balloon": [
+        { title: "Initial Consultation & Eligibility Check" },
+        { title: "Medical Tests & Risk Assessment" },
+        { title: "Pre-procedure Preparation Guidelines" },
+        { title: "Balloon Placement (Endoscopic)" },
+        { title: "Nutrition Plan & Lifestyle Coaching" },
+        { title: "Follow-up Visits & Progress Monitoring" },
+      ],
+
+      "smart-balloon": [
+        { title: "Assessment & Personalized Plan" },
+        { title: "Swallowable Balloon Procedure" },
+        { title: "Diet Plan & Hydration Guidance" },
+        { title: "Weekly Progress Tracking" },
+        { title: "Metabolism & Habit Coaching" },
+        { title: "Balloon Exit Naturally + After Plan" },
+      ],
+
+      "munjaro-sessions": [
+        { title: "Doctor Consultation & Eligibility Check" },
+        { title: "Baseline Measurements & Health History" },
+        { title: "Dose Plan & Injection Training" },
+        { title: "Side-effects Monitoring & Support" },
+        { title: "Diet Routine + Lifestyle Guidance" },
+        { title: "Monthly Review & Adjustments" },
+      ],
+
+      slimming: [
+        { title: "Body Composition Analysis" },
+        { title: "Goal Setting & Treatment Plan" },
+        { title: "Session Scheduling & Preparation" },
+        { title: "Non-invasive Slimming Procedure" },
+        { title: "Post-session Care Instructions" },
+        { title: "Follow-up & Result Tracking" },
+      ],
+    },
+
+    // ✅ NEW: videosByCategory
+    videosByCategory: {
+      "surgical-balloon": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "smart-balloon": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "munjaro-sessions": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      slimming: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+    },
   },
+
   {
     id: 2,
     title: "Plastic Surgery",
@@ -118,7 +182,114 @@ export const serviceboxdata: ServiceItem[] = [
       "Liposuction (Tummy, legs, hands)",
     ],
     image: IMAGES.bloggrid2,
+
+    worldclassByCategory: {
+      "local-anesthesia-procedures": [
+        { title: "Consultation & Treatment Planning" },
+        { title: "Pre-op Medical Evaluation" },
+        { title: "Local Anesthesia Preparation" },
+        { title: "Procedure With Comfort Monitoring" },
+        { title: "Immediate Aftercare Guidance" },
+        { title: "Follow-up & Healing Review" },
+      ],
+
+      "double-chin": [
+        { title: "Facial Assessment & Goal Discussion" },
+        { title: "Choose Approach (Injection / Liposuction)" },
+        { title: "Pre-procedure Prep Instructions" },
+        { title: "Treatment Session (Targeted Area)" },
+        { title: "Recovery Support & Aftercare" },
+        { title: "Result Monitoring & Touch-up Plan" },
+      ],
+
+      blepharoplasty: [
+        { title: "Eye Assessment & Surgical Planning" },
+        { title: "Pre-op Testing & Safety Checks" },
+        { title: "Procedure Day (Upper/Lower Lids)" },
+        { title: "Swelling Control & Medication Guidance" },
+        { title: "Stitch Care & Follow-up Appointment" },
+        { title: "Final Healing & Results Review" },
+      ],
+
+      rhinoplasty: [
+        { title: "Consultation & Facial Analysis" },
+        { title: "Nose Design Planning & Expectations" },
+        { title: "Pre-op Instructions & Medical Testing" },
+        { title: "Procedure Day & Post-op Monitoring" },
+        { title: "Recovery Plan (Splint/Care Guide)" },
+        { title: "Follow-ups & Outcome Review" },
+      ],
+
+      "face-lift": [
+        { title: "Consultation & Skin Laxity Assessment" },
+        { title: "Surgical Plan & Natural Look Design" },
+        { title: "Pre-op Testing & Instructions" },
+        { title: "Procedure Day & Aftercare Setup" },
+        { title: "Swelling Care & Healing Monitoring" },
+        { title: "Follow-up & Final Result Review" },
+      ],
+
+      "breast-lift": [
+        { title: "Consultation & Measurements" },
+        { title: "Lift Technique Selection" },
+        { title: "Pre-op Testing & Preparation" },
+        { title: "Procedure Day & Recovery Protocol" },
+        { title: "Support Garment & Aftercare" },
+        { title: "Follow-up & Scar Care Plan" },
+      ],
+
+      "breast-implant": [
+        { title: "Consultation & Size/Shape Selection" },
+        { title: "Implant Type & Placement Planning" },
+        { title: "Pre-op Health Checks & Prep" },
+        { title: "Procedure Day & Monitoring" },
+        { title: "Recovery Plan & Activity Guidance" },
+        { title: "Follow-ups & Final Review" },
+      ],
+
+      "tummy-tuck": [
+        { title: "Consultation & Skin/Fat Assessment" },
+        { title: "Surgical Plan & Expectation Setting" },
+        { title: "Pre-op Testing & Instructions" },
+        { title: "Procedure Day & Hospital/Clinic Care" },
+        { title: "Compression & Recovery Guidance" },
+        { title: "Follow-up & Scar Care Monitoring" },
+      ],
+
+      "360": [
+        { title: "Body Analysis & Target Area Mapping" },
+        { title: "Procedure Planning & Safety Checks" },
+        { title: "Pre-op Instructions & Preparation" },
+        { title: "Procedure Day (360 Contouring)" },
+        { title: "Compression & Recovery Support" },
+        { title: "Follow-up & Result Tracking" },
+      ],
+
+      // ✅ FIXED KEY: must match slugify("Liposuction (Tummy, legs, hands)")
+      "liposuction-tummy-legs-hands": [
+        { title: "Consultation & Target Area Planning" },
+        { title: "Pre-op Tests & Medical Clearance" },
+        { title: "Procedure Day (Precision Fat Removal)" },
+        { title: "Swelling Control & Aftercare" },
+        { title: "Compression & Recovery Instructions" },
+        { title: "Follow-up & Final Result Review" },
+      ],
+    },
+
+    videosByCategory: {
+      "local-anesthesia-procedures": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "double-chin": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      blepharoplasty: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      rhinoplasty: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "face-lift": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "breast-lift": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "breast-implant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "tummy-tuck": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "360": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "liposuction-tummy-legs-hands": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+    },
   },
+
   {
     id: 3,
     title: "Derma",
@@ -143,7 +314,153 @@ export const serviceboxdata: ServiceItem[] = [
       "Jalupro",
     ],
     image: IMAGES.bloggrid2,
+
+    worldclassByCategory: {
+      "body-filler": [
+        { title: "Consultation & Area Assessment" },
+        { title: "Treatment Planning & Safety Checks" },
+        { title: "Pre-treatment Preparation" },
+        { title: "Filler Application (Targeted Areas)" },
+        { title: "Aftercare & Swelling Guidance" },
+        { title: "Follow-up & Results Review" },
+      ],
+
+      sculptra: [
+        { title: "Skin Assessment & Volume Planning" },
+        { title: "Session Plan (Multiple Treatments)" },
+        { title: "Preparation & Patch/Safety Check" },
+        { title: "Injection Session & Comfort Care" },
+        { title: "Massage/Aftercare Instructions" },
+        { title: "Follow-up & Progress Tracking" },
+      ],
+
+      olidia: [
+        { title: "Consultation & Skin Evaluation" },
+        { title: "Goal Setting & Treatment Mapping" },
+        { title: "Preparation & Cleansing" },
+        { title: "Procedure / Application Session" },
+        { title: "Aftercare & Protection Guidance" },
+        { title: "Follow-up & Results Review" },
+      ],
+
+      exosome: [
+        { title: "Consultation & Skin Needs Analysis" },
+        { title: "Treatment Plan (Sessions + Timeline)" },
+        { title: "Skin Prep & Procedure Readiness" },
+        { title: "Application / Delivery Session" },
+        { title: "Aftercare & Recovery Support" },
+        { title: "Follow-up & Outcome Monitoring" },
+      ],
+
+      peeling: [
+        { title: "Skin Assessment & Peel Selection" },
+        { title: "Cleansing & Skin Preparation" },
+        { title: "Peel Application (Controlled Timing)" },
+        { title: "Soothing & Neutralization Step" },
+        { title: "Aftercare Guidance (Sun Protection)" },
+        { title: "Follow-up Session (If Needed)" },
+      ],
+
+      "lip-filler": [
+        { title: "Consultation & Lip Shape Planning" },
+        { title: "Pre-treatment Prep & Numbing" },
+        { title: "Precise Filler Injection" },
+        { title: "Swelling Care & Aftercare Tips" },
+        { title: "Symmetry Check & Adjustments" },
+        { title: "Follow-up & Final Review" },
+      ],
+
+      "under-eye": [
+        { title: "Assessment (Hollows / Dark Circles)" },
+        { title: "Choose Approach (Filler / PRP)" },
+        { title: "Preparation & Numbing" },
+        { title: "Treatment Session (Delicate Area)" },
+        { title: "Aftercare & Swelling Control" },
+        { title: "Follow-up & Results Review" },
+      ],
+
+      "botox-face": [
+        { title: "Facial Muscle Assessment" },
+        { title: "Treatment Plan & Dose Mapping" },
+        { title: "Preparation & Cleansing" },
+        { title: "Botox Injection Session" },
+        { title: "Aftercare Instructions (Do/Don’t)" },
+        { title: "Follow-up & Touch-up (If Needed)" },
+      ],
+
+      "under-arms": [
+        { title: "Assessment & Goal Discussion" },
+        { title: "Choose Treatment (Botox / Laser etc.)" },
+        { title: "Preparation & Cleaning" },
+        { title: "Procedure Session" },
+        { title: "Aftercare Guidance" },
+        { title: "Follow-up & Progress Tracking" },
+      ],
+
+      "rejuvenation-prp": [
+        { title: "Consultation & Skin Assessment" },
+        { title: "Blood Draw & PRP Preparation" },
+        { title: "Skin Prep & Numbing" },
+        { title: "PRP Application / Micro-needling" },
+        { title: "Aftercare & Recovery Support" },
+        { title: "Follow-up & Results Review" },
+      ],
+
+      meso: [
+        { title: "Consultation & Skin Goals Review" },
+        { title: "Serum Selection & Treatment Plan" },
+        { title: "Preparation & Numbing (If Needed)" },
+        { title: "Mesotherapy Session" },
+        { title: "Aftercare & Hydration Guidance" },
+        { title: "Follow-up & Ongoing Plan" },
+      ],
+
+      "skin-booster": [
+        { title: "Skin Assessment & Booster Selection" },
+        { title: "Treatment Plan & Session Scheduling" },
+        { title: "Preparation & Cleansing" },
+        { title: "Booster Injection Session" },
+        { title: "Aftercare & Glow Maintenance" },
+        { title: "Follow-up & Review" },
+      ],
+
+      profhilo: [
+        { title: "Consultation & Suitability Assessment" },
+        { title: "Injection Points Planning" },
+        { title: "Skin Preparation" },
+        { title: "Profhilo Injection Session" },
+        { title: "Aftercare & Hydration Support" },
+        { title: "Follow-up & Second Session Plan" },
+      ],
+
+      jalupro: [
+        { title: "Consultation & Skin Quality Review" },
+        { title: "Treatment Mapping & Plan" },
+        { title: "Preparation & Cleansing" },
+        { title: "Jalupro Injection Session" },
+        { title: "Aftercare & Skin Support" },
+        { title: "Follow-up & Results Review" },
+      ],
+    },
+
+    videosByCategory: {
+      "body-filler": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      sculptra: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      olidia: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      exosome: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      peeling: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "lip-filler": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "under-eye": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "botox-face": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "under-arms": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "rejuvenation-prp": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      meso: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "skin-booster": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      profhilo: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      jalupro: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+    },
   },
+
   {
     id: 4,
     title: "Hair Treatment",
@@ -153,16 +470,46 @@ export const serviceboxdata: ServiceItem[] = [
     icon: Droplets,
     services: ["Hair transplant", "Beard transplant", "Eyebrow transplant"],
     image: IMAGES.bloggrid2,
+
+    worldclassByCategory: {
+      "hair-transplant": [
+        { title: "Consultation & Donor Area Assessment" },
+        { title: "Hairline Design & Planning" },
+        { title: "Pre-op Instructions & Preparation" },
+        { title: "Extraction & Implantation Procedure" },
+        { title: "Recovery & Aftercare Guidance" },
+        { title: "Growth Monitoring & Follow-ups" },
+      ],
+
+      "beard-transplant": [
+        { title: "Consultation & Beard Design Planning" },
+        { title: "Donor Area Assessment" },
+        { title: "Pre-op Preparation & Instructions" },
+        { title: "Extraction & Implantation Procedure" },
+        { title: "Aftercare & Healing Support" },
+        { title: "Follow-up & Growth Monitoring" },
+      ],
+
+      "eyebrow-transplant": [
+        { title: "Consultation & Brow Shape Design" },
+        { title: "Donor Hair Selection & Mapping" },
+        { title: "Pre-op Preparation & Instructions" },
+        { title: "Precision Implantation Procedure" },
+        { title: "Aftercare & Healing Guidance" },
+        { title: "Follow-up & Final Result Review" },
+      ],
+    },
+
+    videosByCategory: {
+      "hair-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "beard-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "eyebrow-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+    },
   },
 ];
 
 /* =========================
    ✅ SERVICES AS TOP NAV ITEMS
-   IMPORTANT:
-   - We keep `classChange: "sub-menu-down"` so your header logic stays unchanged.
-   - We add "View All {Service}" as the FIRST submenu item so the parent page is clickable.
-   - Parent: /service-detail/{serviceSlug}
-   - Child : /service-detail/{serviceSlug}/{categorySlug}
 ========================= */
 const servicesTopNav: HeaderItem[] = serviceboxdata.map((s) => {
   const parentUrl = `/service-detail/${s.slug}`;
@@ -171,10 +518,7 @@ const servicesTopNav: HeaderItem[] = serviceboxdata.map((s) => {
     title: s.title,
     classChange: "sub-menu-down",
     content: [
-      // ✅ parent service page link (since parent anchor is "#")
       { title: `View All ${s.title}`, to: parentUrl },
-
-      // ✅ child category links
       ...s.services.map((cat) => ({
         title: cat,
         to: `/service-detail/${s.slug}/${slugify(cat)}`,
@@ -201,7 +545,6 @@ export const headerdata: HeaderItem[] = [
 
   { title: "Gallery", to: "/gallery" },
 
-  // ✅ each service becomes a top navbar item
   ...servicesTopNav,
 
   {
@@ -215,11 +558,6 @@ export const headerdata: HeaderItem[] = [
 
   { title: "Contact Us", to: "/contact-us" },
 ];
-
-/* =========================
-   (KEEP REST OF YOUR FILE BELOW AS IT IS)
-   footerdata, blogdata, etc...
-========================= */
 
 /* =========================
    FOOTER
@@ -409,10 +747,11 @@ export const empolydata = [
   { id: 8, delay: "1.6s", image: IMAGES.team4, title: "Kenneth Fong", position: "Neurology" },
 ];
 
+// ✅ Keep this old one as fallback default gallery/videos page etc.
 export const teamVideos = [
-  { id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: "https://www.youtube.com/watch?v=W5Dm2WCk8jg" },
-  { id: 2, delay: "0.4s", image: IMAGES.team2, videoUrl: "https://www.youtube.com/watch?v=W5Dm2WCk8jg" },
-  { id: 3, delay: "0.6s", image: IMAGES.team3, videoUrl: "https://www.youtube.com/watch?v=W5Dm2WCk8jg" },
+  { id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT },
+  { id: 2, delay: "0.4s", image: IMAGES.team2, videoUrl: DEFAULT_YT },
+  { id: 3, delay: "0.6s", image: IMAGES.team3, videoUrl: DEFAULT_YT },
 ];
 
 export const locationdata = [
@@ -614,7 +953,17 @@ export const whychoosedata = [
   { delay: "1.0s", title: "Unparalleled expertise" },
 ];
 
-export const worldclasslistdata = [
+export const gallerydata = [
+  { id: 1, image: IMAGES.bloggrid1, title: "Project 1", category: "Cardiology" },
+  { id: 2, image: IMAGES.bloggrid2, title: "Project 2", category: "Dental" },
+  { id: 3, image: IMAGES.bloggrid3, title: "Project 3", category: "Neurology" },
+  { id: 4, image: IMAGES.bloggrid4, title: "Project 4", category: "Surgery" },
+  { id: 5, image: IMAGES.bloggrid5, title: "Project 5", category: "Medical" },
+  { id: 6, image: IMAGES.bloggrid6, title: "Project 6", category: "Orthopedics" },
+];
+
+// ✅ Default list for Home page WorldClass section
+export const worldclasslistdata: WorldClassItem[] = [
   { title: "Comprehensive Specialties" },
   { title: "Research and Development" },
   { title: "Emergency Services" },
@@ -625,13 +974,4 @@ export const worldclasslistdata = [
   { title: "Patient-Centric Approach" },
   { title: "Multidisciplinary Team" },
   { title: "Health Information Technology" },
-];
-
-export const gallerydata = [
-  { id: 1, image: IMAGES.bloggrid1, title: "Project 1", category: "Cardiology" },
-  { id: 2, image: IMAGES.bloggrid2, title: "Project 2", category: "Dental" },
-  { id: 3, image: IMAGES.bloggrid3, title: "Project 3", category: "Neurology" },
-  { id: 4, image: IMAGES.bloggrid4, title: "Project 4", category: "Surgery" },
-  { id: 5, image: IMAGES.bloggrid5, title: "Project 5", category: "Medical" },
-  { id: 6, image: IMAGES.bloggrid6, title: "Project 6", category: "Orthopedics" },
 ];

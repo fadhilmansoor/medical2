@@ -1,9 +1,9 @@
 "use client";
 
 import { Modal } from "react-bootstrap";
-import { teamVideos } from "@/constant/alldata";
 import Image from "next/image";
 import { useState } from "react";
+import { teamVideos, type VideoItem } from "@/constant/alldata";
 
 function getYoutubeId(url: string) {
   try {
@@ -24,7 +24,6 @@ function getYoutubeId(url: string) {
   }
 }
 
-// maxres sometimes not available -> fallback handled in component
 function getYoutubeThumb(url: string, quality: "maxres" | "hq" = "maxres") {
   const id = getYoutubeId(url);
   if (!id) return "";
@@ -33,9 +32,16 @@ function getYoutubeThumb(url: string, quality: "maxres" | "hq" = "maxres") {
     : `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 }
 
-const SurgeryBlog = () => {
+type Props = {
+  videos?: VideoItem[]; // ✅ dynamic from service
+};
+
+const SurgeryBlog = ({ videos }: Props) => {
   const [show, setShow] = useState(false);
   const [activeVideoId, setActiveVideoId] = useState<string>("");
+
+  // ✅ fallback to teamVideos if no dynamic videos provided
+  const list = videos && videos.length ? videos : teamVideos;
 
   const openVideo = (url: string) => {
     const id = getYoutubeId(url);
@@ -52,7 +58,7 @@ const SurgeryBlog = () => {
   return (
     <>
       <div className="row">
-        {teamVideos.map((item, i) => (
+        {list.map((item, i) => (
           <div className="col-xxl-4 col-sm-6" key={item.id ?? i}>
             <div className="dz-team style-1 box-hover">
               <div className="dz-media">
@@ -63,7 +69,6 @@ const SurgeryBlog = () => {
                   height={600}
                   style={{ width: "100%", height: "auto" }}
                   onError={(e) => {
-                    // fallback to HQ thumbnail if maxres fails
                     const fallback = getYoutubeThumb(item.videoUrl, "hq");
                     if (!fallback) return;
                     (e.currentTarget as any).src = fallback;
@@ -79,7 +84,6 @@ const SurgeryBlog = () => {
                 </button>
               </div>
 
-              {/* keep layout spacing */}
               <div className="dz-content">
                 <div className="clearfix" />
               </div>

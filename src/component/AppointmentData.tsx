@@ -123,29 +123,26 @@ function AppointmentData() {
                     </div>
 
                     {/* Service */}
-                    <div className="col-sm-6 m-b30">
-                      <div className="form-floating floating-underline input-light">
-                        <Dropdown className="form-control bs-select input-light">
-                          <Dropdown.Toggle as="div" className="form-control input-light">
-                            {selectCat}
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => setSelectCat("Angioplasty")}>
-                              Angioplasty
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => setSelectCat("Cardiology")}>
-                              Cardiology
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => setSelectCat("Dental")}>
-                              Dental
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => setSelectCat("Eye Care")}>
-                              Eye Care
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                    </div>
+                   
+<div className="col-sm-6 m-b30">
+  <div className="form-floating floating-underline input-light">
+    {/* ✅ remove form-control from Dropdown wrapper */}
+    <Dropdown className="bs-select input-light">
+      {/* ✅ keep form-control only on toggle */}
+      <Dropdown.Toggle as="div" className="form-control input-light">
+        {selectCat}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={() => setSelectCat("Angioplasty")}>Angioplasty</Dropdown.Item>
+        <Dropdown.Item onClick={() => setSelectCat("Cardiology")}>Cardiology</Dropdown.Item>
+        <Dropdown.Item onClick={() => setSelectCat("Dental")}>Dental</Dropdown.Item>
+        <Dropdown.Item onClick={() => setSelectCat("Eye Care")}>Eye Care</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  </div>
+</div>
+
 
                     {/* ✅ Message (OPTIONAL, same font & height) */}
                     <div className="col-sm-12 m-b30">

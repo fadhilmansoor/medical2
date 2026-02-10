@@ -8,9 +8,7 @@ import PageBanner from "@/component/PageBanner";
 import { IMAGES } from "@/constant/theme";
 import { serviceboxdata } from "@/constant/alldata";
 import AccordionBlog from "../../_components/AccordionBlog";
-
-
-
+import SurgeryBlog from "../../_components/SurgeryBlog";
 
 type Props = {
   params: Promise<{
@@ -36,33 +34,46 @@ export default async function CategoryDetailPage({ params }: Props) {
 
   if (!categoryExists) return notFound();
 
+  const categorySlug = category;
+
+  const worldclasslistdata =
+    service.worldclassByCategory?.[categorySlug] ?? [
+      { title: "Comprehensive Specialties" },
+      { title: "Research and Development" },
+      { title: "Emergency Services" },
+      { title: "Advanced Imaging Services" },
+      { title: "Intensive Care Units (ICUs)" },
+      { title: "Rehabilitation Services" },
+      { title: "Telemedicine Facilities" },
+      { title: "Patient-Centric Approach" },
+      { title: "Multidisciplinary Team" },
+      { title: "Health Information Technology" },
+    ];
+
   return (
     <>
       <Header />
 
       <main className="page-content">
-        <PageBanner 
-          title={categoryName} 
-          bnrimage={IMAGES.bnr2.src} 
+        {/* ✅ Breadcrumb now inside banner */}
+        <PageBanner
+          title={categoryName}
+          bnrimage={IMAGES.bnr2.src}
+          breadcrumb={[
+            { label: "Home", href: "/" },
+            { label: "Services", href: "/services" },
+            { label: service.title, href: `/service-detail/${service.slug}` },
+            { label: categoryName },
+          ]}
         />
-     
 
         <section className="content-inner category-detail">
           <div className="container">
-            {/* Breadcrumb */}
-            <div className="breadcrumb-row">
-              <ul className="breadcrumb-custom">
-                <li><Link href="/">Home</Link></li>
-                <li><Link href="/services">Services</Link></li>
-                <li><Link href={`/service-detail/${service.slug}`}>{service.title}</Link></li>
-                <li className="active">{categoryName}</li>
-              </ul>
-            </div>
+            {/* ✅ Removed breadcrumb from here */}
 
             <div className="row">
               {/* LEFT CONTENT */}
               <div className="col-lg-8">
-                {/* Hero Image */}
                 <div className="category-hero wow fadeInUp" data-wow-delay="0.1s">
                   <Image
                     src={IMAGES.bloggrid2}
@@ -71,7 +82,6 @@ export default async function CategoryDetailPage({ params }: Props) {
                   />
                 </div>
 
-                {/* Overview */}
                 <div className="content-block wow fadeInUp" data-wow-delay="0.2s">
                   <h1 className="category-main-title">{categoryName}</h1>
                   <p className="category-intro">
@@ -81,7 +91,6 @@ export default async function CategoryDetailPage({ params }: Props) {
                   </p>
                 </div>
 
-                {/* What is it */}
                 <div className="content-block wow fadeInUp" data-wow-delay="0.3s">
                   <h2 className="block-title">What is {categoryName}?</h2>
                   <p>
@@ -97,7 +106,6 @@ export default async function CategoryDetailPage({ params }: Props) {
                   </p>
                 </div>
 
-                {/* Benefits */}
                 <div className="content-block wow fadeInUp" data-wow-delay="0.4s">
                   <h2 className="block-title">Benefits of {categoryName}</h2>
                   <div className="benefits-grid">
@@ -132,54 +140,15 @@ export default async function CategoryDetailPage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* Treatment Process */}
-                <div className="content-block wow fadeInUp" data-wow-delay="0.5s">
-                  <h2 className="block-title">Treatment Process</h2>
-                  <div className="process-timeline">
-                    <div className="process-step">
-                      <div className="step-number">1</div>
-                      <div className="step-content">
-                        <h4>Consultation</h4>
-                        <p>
-                          Meet with our specialist to discuss your goals and
-                          determine if this treatment is right for you.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="process-step">
-                      <div className="step-number">2</div>
-                      <div className="step-content">
-                        <h4>Preparation</h4>
-                        <p>
-                          We'll prepare you for the procedure and answer any
-                          questions you may have.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="process-step">
-                      <div className="step-number">3</div>
-                      <div className="step-content">
-                        <h4>Treatment</h4>
-                        <p>
-                          The procedure is performed with precision and care
-                          for optimal results.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="process-step">
-                      <div className="step-number">4</div>
-                      <div className="step-content">
-                        <h4>Recovery & Follow-up</h4>
-                        <p>
-                          We provide comprehensive aftercare and schedule
-                          follow-up appointments.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                <div className="content-item wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
+                  <h3>Steps in {categoryName}</h3>
+                  <ul className="list-check text-secondary m-b30 worldclass-steps">
+                    {worldclasslistdata.map((item, i) => (
+                      <li key={i}>{item.title}</li>
+                    ))}
+                  </ul>
                 </div>
 
-                {/* Before & After Care */}
                 <div className="content-block wow fadeInUp" data-wow-delay="0.6s">
                   <div className="row">
                     <div className="col-md-6">
@@ -193,6 +162,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                         </ul>
                       </div>
                     </div>
+
                     <div className="col-md-6">
                       <div className="care-box">
                         <h3>After Treatment</h3>
@@ -207,48 +177,17 @@ export default async function CategoryDetailPage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* FAQ */}
                 <div className="content-block wow fadeInUp" data-wow-delay="0.7s">
                   <h2 className="block-title">Frequently Asked Questions</h2>
                   <AccordionBlog />
                 </div>
 
-                {/* CTA */}
-                <div className="content-block wow fadeInUp" data-wow-delay="0.8s">
-                  <div className="category-cta">
-                    <h3>Ready to Schedule Your {categoryName}?</h3>
-                    <p>
-                      Book a consultation with our specialists to get started on
-                      your journey.
-                    </p>
-                    <div className="cta-buttons">
-                      <Link
-                        href="/appointment"
-                        className="btn btn-lg btn-primary btn-shadow"
-                      >
-                        Book Consultation
-                        <span className="right-icon">
-                          <i className="feather icon-calendar" />
-                        </span>
-                      </Link>
-                      <Link
-                        href={`/service-detail/${service.slug}`}
-                        className="btn btn-lg btn-outline-secondary"
-                      >
-                        View All {service.title}
-                        <span className="right-icon">
-                          <i className="feather icon-arrow-right" />
-                        </span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                <SurgeryBlog />
               </div>
 
               {/* RIGHT SIDEBAR */}
               <div className="col-lg-4">
                 <aside className="side-bar sticky-top">
-                  {/* Quick Info */}
                   <div className="widget category-info-widget wow fadeInUp" data-wow-delay="0.2s">
                     <h4 className="widget-title-custom">Treatment Info</h4>
                     <div className="info-list">
@@ -271,11 +210,8 @@ export default async function CategoryDetailPage({ params }: Props) {
                     </div>
                   </div>
 
-                  {/* Related Treatments */}
                   <div className="widget related-treatments-widget wow fadeInUp" data-wow-delay="0.3s">
-                    <h4 className="widget-title-custom">
-                      Other {service.title} Treatments
-                    </h4>
+                    <h4 className="widget-title-custom">Other {service.title} Treatments</h4>
                     <ul className="related-list">
                       {service.services
                         .filter((s) => s !== categoryName)
@@ -293,17 +229,16 @@ export default async function CategoryDetailPage({ params }: Props) {
                           </li>
                         ))}
                     </ul>
+
                     <Link
                       href={`/service-detail/${service.slug}`}
                       className="view-all-link"
                     >
-                      View All Treatments
-                      <i className="feather icon-arrow-right"></i>
+                      View All Treatments <i className="feather icon-arrow-right"></i>
                     </Link>
                   </div>
 
-                  {/* Contact Widget */}
-                  <div
+                  {/* <div
                     className="widget_contact wow fadeInUp"
                     style={{ backgroundImage: `url(${IMAGES.bg3png.src})` }}
                     data-wow-delay="0.4s"
@@ -324,20 +259,51 @@ export default async function CategoryDetailPage({ params }: Props) {
                         </Link>
                       </div>
 
-                      <Link
-                        href="/contact-us"
-                        className="btn btn-white btn-block btn-shadow"
-                      >
+                      <Link href="/contact-us" className="btn btn-white btn-block btn-shadow">
                         Contact Us
                       </Link>
                     </div>
-                  </div>
+                  </div> */}
+                    <div className="widget widget_info bg-light wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
+                                                          <div className="icon-bx-wraper style-1 m-b20">
+                                                              <div className="icon-bx bg-primary">
+                                                                  <span className="icon-cell">
+                                                                      <i className="feather icon-map-pin" />
+                                                                  </span>
+                                                              </div>
+                                                              <div className="icon-content">
+                                                                  <h5 className="dz-title fw-semibold">Address</h5>
+                                                                  <p className="fw-normal">234 Oak Drive, Villagetown, USA</p>
+                                                              </div>
+                                                          </div>
+                                                          <div className="icon-bx-wraper style-1 m-b20">
+                                                              <div className="icon-bx bg-primary">
+                                                                  <span className="icon-cell">
+                                                                      <i className="feather icon-phone" />
+                                                                  </span>
+                                                              </div>
+                                                              <div className="icon-content">
+                                                                  <h5 className="dz-title fw-semibold">Call Us</h5>
+                                                                  <p className="fw-normal"><Link href="tel:+11234567890" className="text-body">+1 123 456 7890</Link></p>
+                                                              </div>
+                                                          </div>
+                                                          <div className="icon-bx-wraper style-1 m-b15">
+                                                              <div className="icon-bx bg-primary">
+                                                                  <span className="icon-cell">
+                                                                      <i className="feather icon-mail" />
+                                                                  </span>
+                                                              </div>
+                                                              <div className="icon-content">
+                                                                  <h5 className="dz-title fw-semibold">Send us a Mail</h5>
+                                                                  <p className="fw-normal"><Link href="mailto:info@example.com" className="text-body">info@example.com</Link></p>
+                                                              </div>
+                                                          </div>
+                                                      </div>
                 </aside>
               </div>
             </div>
           </div>
         </section>
-    
       </main>
 
       <Footer />

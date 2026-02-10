@@ -126,7 +126,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                                                                   <p className="fw-normal"><Link href="mailto:info@example.com" className="text-body">info@example.com</Link></p>
                                                               </div>
                                                           </div>
-                                                      </div>
+                    </div>
                                                       
                 </aside>
               </div>
