@@ -22065,7 +22065,7 @@ select, button {
 }
 .dz-card.style-1.blog-half-2 .info-bottom {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 15px;
   margin-top: -10px;
@@ -28853,7 +28853,7 @@ table {
   border-radius: var(--radius-md);
   border: 2px solid var(--bs-primary);
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: 25px;
   box-shadow: 0 0 30px rgba(var(--bs-secondary-rgb), 0.05);
   -webkit-transition: all 0.2s;
@@ -37451,7 +37451,7 @@ pre {
   padding: 0;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   color: var(--bs-secondary);
 }
 .filter-wrapper .shop-tab .nav .nav-item .nav-link i {
@@ -44557,7 +44557,7 @@ table.wishlist_table {
   margin: 0 30px 80px 0;
   text-align: center;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   position: relative;
 }
@@ -44686,7 +44686,7 @@ table.wishlist_table {
   padding-top: 200px !important;
 }
 .dz-bnr-inr.style-2.dz-bnr-detail .dz-bnr-inr-entry .dz-bnr-inr-flex {
-  align-items: end;
+  align-items: flex-end;
 }
 .dz-bnr-inr.style-2.dz-bnr-detail .media-info {
   position: absolute;

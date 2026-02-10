@@ -13,25 +13,25 @@ import AccordionBlog from "../../_components/AccordionBlog";
 
 
 type Props = {
-  params: { 
+  params: Promise<{
     slug: string;
     category: string;
-  };
+  }>;
 };
 
-export default function CategoryDetailPage({ params }: Props) {
-  const service = serviceboxdata.find((x) => x.slug === params.slug);
-  
+export default async function CategoryDetailPage({ params }: Props) {
+  const { slug, category } = await params;
+
+  const service = serviceboxdata.find((x) => x.slug === slug);
   if (!service) return notFound();
 
-  // Find the specific category/treatment
-  const categoryName = params.category
+  const categoryName = category
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
   const categoryExists = service.services.some(
-    (s) => s.toLowerCase().replace(/\s+/g, "-") === params.category
+    (s) => s.toLowerCase().replace(/\s+/g, "-") === category
   );
 
   if (!categoryExists) return notFound();

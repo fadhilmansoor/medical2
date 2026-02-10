@@ -9,15 +9,18 @@ import { IMAGES } from "@/constant/theme";
 import { serviceboxdata } from "@/constant/alldata";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 function toCategorySlug(name: string) {
   return name.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
-export default function ServiceDetailPage({ params }: Props) {
-  const current = serviceboxdata.find((x) => x.slug === params.slug);
+export default async function ServiceDetailPage({ params }: Props) {
+  const { slug } = await params;
+
+  const current = serviceboxdata.find((x) => x.slug === slug);
+
   if (!current) return notFound();
 
   return (
