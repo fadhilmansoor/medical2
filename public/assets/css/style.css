@@ -18019,7 +18019,7 @@ section {
   padding: 35px 30px 30px;
   display: flex;
   flex-direction: column;
-  align-items: start;
+ align-items: flex-start;
   justify-content: flex-start;
   position: relative;
   z-index: 1;
@@ -18231,7 +18231,7 @@ section {
   padding: 30px 50px 30px 0px;
   display: flex;
   flex-direction: column;
-  align-items: start;
+align-items: flex-start;
   justify-content: flex-start;
   position: relative;
   z-index: 1;
@@ -38285,7 +38285,7 @@ pre {
 }
 @media only screen and (max-width: 575px) {
   .shop-checkout .dz-accordion .accordion-item .accordion-header .accordion-button {
-    align-items: start;
+    align-items: flex-start;
     font-size: 14px;
   }
 }
@@ -43018,7 +43018,7 @@ table.wishlist_table {
 }
 
 .w3menu.w3menu-start {
-  justify-content: start;
+  justify-content: flex-start;
 }
 .w3menu.w3menu-center {
   justify-content: center;
