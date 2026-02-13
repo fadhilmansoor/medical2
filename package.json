@@ -24,15 +24,19 @@
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.6.0",
     "react-select": "^5.10.1",
+    "react-slick": "^0.31.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
+    "slick-carousel": "^1.8.1",
     "swiper": "^11.2.8"
   },
   "devDependencies": {
+    "@types/marked": "^5.0.2",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-slick": "^0.23.13",
     "sass": "^1.89.0",
     "typescript": "^5"
   }

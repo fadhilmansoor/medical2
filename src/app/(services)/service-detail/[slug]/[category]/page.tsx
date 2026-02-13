@@ -10,6 +10,8 @@ import { serviceboxdata } from "@/constant/alldata";
 import AccordionBlog from "../../_components/AccordionBlog";
 import SurgeryBlog from "../../_components/SurgeryBlog";
 
+
+
 type Props = {
   params: Promise<{
     slug: string;
@@ -49,6 +51,7 @@ export default async function CategoryDetailPage({ params }: Props) {
       { title: "Multidisciplinary Team" },
       { title: "Health Information Technology" },
     ];
+    const videos = service.videosByCategory?.[categorySlug] ?? [];
 
   return (
     <>
@@ -182,7 +185,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                   <AccordionBlog />
                 </div>
 
-                <SurgeryBlog />
+               {videos.length > 0 && <SurgeryBlog videos={videos} />}
               </div>
 
               {/* RIGHT SIDEBAR */}

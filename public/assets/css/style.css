@@ -47361,3 +47361,442 @@ pre {
   border-color: rgba(255, 255, 255, 0.6) !important;
   box-shadow: none !important;
 }
+
+
+/* surgerblog slider css */
+/* mobile slider peek */
+.surgeryblog-mobile-slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.surgeryblog-mobile-slider .slick-list {
+  overflow: visible; /* allow right preview */
+}
+
+.surgeryblog-mobile-slider .slick-slide > div {
+  padding: 0 8px; /* gap between cards */
+}
+
+
+
+/* markdown css */
+/* Markdown Blog Styles */
+
+.dz-post-text h1,
+.dz-post-text h2,
+.dz-post-text h3,
+.dz-post-text h4,
+.dz-post-text h5,
+.dz-post-text h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.dz-post-text h1 {
+  font-size: 2.5rem;
+}
+
+.dz-post-text h2 {
+  font-size: 2rem;
+}
+
+.dz-post-text h3 {
+  font-size: 1.75rem;
+}
+
+.dz-post-text h4 {
+  font-size: 1.5rem;
+}
+
+.dz-post-text p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.dz-post-text blockquote {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 4px solid var(--primary);
+  background: #f8f9fa;
+  position: relative;
+}
+
+.dz-post-text blockquote p {
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+.dz-post-text blockquote cite {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: normal;
+}
+
+.dz-post-text blockquote cite::before {
+  content: "— ";
+}
+
+.dz-post-text img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 2rem 0;
+  display: block;
+}
+
+.dz-post-text ul,
+.dz-post-text ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.dz-post-text li {
+  margin-bottom: 0.75rem;
+  line-height: 1.8;
+}
+
+.dz-post-text a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.dz-post-text a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.dz-post-text code {
+  background: #f4f4f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.dz-post-text pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.dz-post-text pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.dz-post-text hr {
+  margin: 3rem 0;
+  border: none;
+  border-top: 2px solid #e0e0e0;
+}
+
+.dz-post-text strong {
+  font-weight: 600;
+}
+
+.dz-post-text em {
+  font-style: italic;
+}
+
+.dz-post-text table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+}
+
+.dz-post-text table th,
+.dz-post-text table td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.dz-post-text table th {
+  background: #f8f9fa;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dz-post-text h1 {
+    font-size: 2rem;
+  }
+
+  .dz-post-text h2 {
+    font-size: 1.75rem;
+  }
+
+  .dz-post-text h3 {
+    font-size: 1.5rem;
+  }
+
+  .dz-post-text p {
+    font-size: 1rem;
+  }
+
+  .dz-post-text blockquote {
+    padding: 1rem 1.5rem;
+  }
+}
+
+
+/* service deatiles */
+.mb-slide {
+  padding-right: 0 !important;
+  min-width: 100% !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* surgery blog */
+/* =========================
+   SurgeryBlog (scoped)
+   Everything is under .surgery-blog
+========================= */
+
+/* Mobile Banner */
+.surgery-blog .sb-mbContainer {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 0 20px 0;
+}
+
+.surgery-blog .sb-mbTrack {
+  display: flex;
+  width: 100%;
+}
+
+.surgery-blog .sb-mbSlide {
+  min-width: 100%;
+  padding-right: 0 !important; /* ✅ force override */
+  box-sizing: border-box;
+}
+
+.surgery-blog .sb-mbFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.surgery-blog .sb-mbFrame:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.surgery-blog .sb-mbFrame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.surgery-blog .sb-mbImg {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.surgery-blog .sb-mbFrame:hover .sb-mbImg {
+  transform: scale(1.05);
+}
+
+.surgery-blog .sb-mbPlayBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.surgery-blog .sb-mbPlayBtn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.surgery-blog .sb-mbPlayBtn i {
+  font-size: 24px;
+  color: #667eea;
+  margin-left: 4px;
+}
+
+.surgery-blog .sb-mbPlayBtn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: sbPulse 2s ease-in-out infinite;
+}
+
+@keyframes sbPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0; }
+}
+
+.surgery-blog .sb-mbDots {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.surgery-blog .sb-mbDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.surgery-blog .sb-mbDot:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: scale(1.2);
+}
+
+.surgery-blog .sb-mbDotActive {
+  background: #667eea;
+  width: 30px;
+}
+
+/* Desktop Cards */
+.surgery-blog .sb-videoCard {
+  margin-bottom: 30px;
+}
+
+.surgery-blog .sb-teamCard {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  background: #fff;
+}
+
+.surgery-blog .sb-teamCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.surgery-blog .sb-teamMedia {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.surgery-blog .sb-teamMedia::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.surgery-blog .sb-teamCard:hover .sb-teamMedia::before {
+  opacity: 1;
+}
+
+.surgery-blog .sb-teamMedia img {
+  transition: transform 0.4s ease;
+}
+
+.surgery-blog .sb-teamCard:hover .sb-teamMedia img {
+  transform: scale(1.1);
+}
+
+.surgery-blog .sb-playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  opacity: 0.9;
+}
+
+.surgery-blog .sb-teamCard:hover .sb-playBtn {
+  transform: translate(-50%, -50%) scale(1.15);
+  opacity: 1;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  background: #fff;
+}
+
+.surgery-blog .sb-playBtn i {
+  font-size: 28px;
+  color: #667eea;
+  margin-left: 5px;
+}
+
+.surgery-blog .sb-playBtn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  animation: sbRipple 2s ease-in-out infinite;
+}
+
+@keyframes sbRipple {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0; }
+}

@@ -102,7 +102,7 @@ export type ServiceItem = {
 };
 
 // ✅ SAME VIDEO FOR NOW (as you asked)
-const DEFAULT_YT = "https://www.youtube.com/watch?v=W5Dm2WCk8jg";
+const DEFAULT_YT = "";
 
 export const serviceboxdata: ServiceItem[] = [
   {
@@ -154,12 +154,18 @@ export const serviceboxdata: ServiceItem[] = [
     },
 
     // ✅ NEW: videosByCategory
-    videosByCategory: {
-      "surgical-balloon": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
-      "smart-balloon": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
-      "munjaro-sessions": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
-      slimming: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+videosByCategory: {
+  "hair-transplant": [
+    {
+      id: 1,
+      delay: "0.2s",
+      image: IMAGES.team1,
+      videoUrl: "https://www.youtube.com/watch?v=YcxiUn7k0Ks",
     },
+  ],
+  "beard-transplant": [],
+  "eyebrow-transplant": [],
+},
   },
 
   {
@@ -501,7 +507,7 @@ export const serviceboxdata: ServiceItem[] = [
     },
 
     videosByCategory: {
-      "hair-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "hair-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: "https://www.youtube.com/watch?v=YcxiUn7k0Ks" }],
       "beard-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
       "eyebrow-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
     },
