@@ -6,7 +6,7 @@ import Whychoose from "@/component/WhyChoose";
 import Pricing from "@/component/Pricing";
 import RealPatient from "@/component/RealPatient";
 import Frequently from "@/component/Frequently";
-import ServicesAll from "@/component/ServicesAll"; // ✅ NEW
+import ServicesAll from "@/component/serviceall"; // ✅ NEW
 
 function Services() {
   return (
