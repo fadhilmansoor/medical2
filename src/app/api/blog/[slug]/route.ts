@@ -3,6 +3,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+// ✅ IMPORTANT: because you use fs/path
+export const runtime = "nodejs";
+
 function markdownToHtml(markdown: string): string {
   let html = markdown;
 
@@ -70,9 +73,11 @@ function markdownToHtml(markdown: string): string {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> } // ✅ FIX
 ) {
   try {
+    const { slug } = await params; // ✅ FIX (works even if params isn't actually a Promise)
+
     const blogDir = path.join(
       process.cwd(),
       "src",
@@ -82,7 +87,7 @@ export async function GET(
       "posts"
     );
 
-    const filePath = path.join(blogDir, `${params.slug}.md`);
+    const filePath = path.join(blogDir, `${slug}.md`);
 
     if (!fs.existsSync(filePath)) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });

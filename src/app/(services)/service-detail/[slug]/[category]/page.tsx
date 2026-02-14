@@ -109,7 +109,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                   </p>
                 </div>
 
-                <div className="content-block wow fadeInUp" data-wow-delay="0.4s">
+                {/* <div className="content-block wow fadeInUp" data-wow-delay="0.4s">
                   <h2 className="block-title">Benefits of {categoryName}</h2>
                   <div className="benefits-grid">
                     <div className="benefit-card">
@@ -141,7 +141,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                       <p>Performed by certified specialists</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="content-item wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
                   <h3>Steps in {categoryName}</h3>
