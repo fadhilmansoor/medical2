@@ -19,7 +19,7 @@ const Appointment = () =>{
                         <Whychoose />
                     </div>
                 </section>
-                <Frequently />
+                  <Frequently /> 
             </main>
             <Footer /> 
         </>

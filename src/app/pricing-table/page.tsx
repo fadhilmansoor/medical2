@@ -22,7 +22,7 @@ function PricingTable() {
                 >
                     <RealPatient />
                 </section>
-                <Frequently />
+                  <Frequently /> 
             </main>
             <Footer />            
         </>

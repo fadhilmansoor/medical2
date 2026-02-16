@@ -1,0 +1,128 @@
+{
+  "weight-loss": {
+    "surgical-balloon": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=YcxiUn7k0Ks"
+      },
+      {
+        "id": 2,
+        "delay": "0.4s",
+        "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      }
+    ],
+    "smart-balloon": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=example123"
+      }
+    ],
+    "munjaro-sessions": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=munjaro123"
+      }
+    ],
+    "slimming": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=slimming123"
+      }
+    ]
+  },
+  "plastic-surgery": {
+    "rhinoplasty": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=nose123"
+      },
+      {
+        "id": 2,
+        "delay": "0.4s",
+        "videoUrl": "https://www.youtube.com/watch?v=nose456"
+      }
+    ],
+    "breast-lift": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=breastlift123"
+      }
+    ],
+    "tummy-tuck": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=tummy123"
+      }
+    ],
+    "liposuction-tummy-legs-hands": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=lipo123"
+      }
+    ]
+  },
+  "derma": {
+    "lip-filler": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=lipfiller123"
+      },
+      {
+        "id": 2,
+        "delay": "0.4s",
+        "videoUrl": "https://www.youtube.com/watch?v=lipfiller456"
+      }
+    ],
+    "botox-face": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=botox123"
+      }
+    ],
+    "skin-booster": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=skinbooster123"
+      }
+    ]
+  },
+  "hair-treatment": {
+    "hair-transplant": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=YcxiUn7k0Ks"
+      },
+      {
+        "id": 2,
+        "delay": "0.4s",
+        "videoUrl": "https://www.youtube.com/watch?v=hairtrans456"
+      }
+    ],
+    "beard-transplant": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=beardtrans123"
+      }
+    ],
+    "eyebrow-transplant": [
+      {
+        "id": 1,
+        "delay": "0.2s",
+        "videoUrl": "https://www.youtube.com/watch?v=eyebrowtrans123"
+      }
+    ]
+  }
+}

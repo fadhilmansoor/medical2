@@ -73,7 +73,7 @@ function Services() {
           <RealPatient />
         </section>
 
-        <Frequently />
+          <Frequently /> 
       </main>
       <Footer />
     </>

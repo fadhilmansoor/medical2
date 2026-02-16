@@ -13,7 +13,7 @@ function Faqs() {
             <Header />
             <main className="page-content">
                 <PageBanner title="Faq's" bnrimage={IMAGES.bnr2.src} />
-                <Frequently />
+                  <Frequently /> 
                 <Schedule />
                 <section className="content-inner">
                     <div className="container">

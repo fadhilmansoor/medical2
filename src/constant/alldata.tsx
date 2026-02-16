@@ -1,7 +1,8 @@
-// alldata.ts (FULL UPDATED FILE SECTION FOR HEADER + SERVICES NAV)
-// ✅ CSS unchanged
+// alldata.ts (FULL UPDATED FILE SECTION FOR HEADER + SERVICES NAV + DYNAMIC FAQS)
 // ✅ Parent service page works via "View All {Service}" inside dropdown
 // ✅ Child pages use /service-detail/{serviceSlug}/{categorySlug}
+// ✅ FAQs are dynamic per service category via faqsByCategory
+// ✅ Footer "Our Contacts" replaced with "Social Media"
 
 import Link from "next/link";
 import { IMAGES, SVGICONS } from "./theme";
@@ -73,9 +74,6 @@ export type HeaderItem = {
   content?: HeaderContentItem[];
 };
 
-/* =========================
-   SERVICES (SOURCE)
-========================= */
 export type WorldClassItem = { title: string };
 
 export type VideoItem = {
@@ -83,6 +81,13 @@ export type VideoItem = {
   delay: string;
   image: any; // fallback image if thumbnail fails
   videoUrl: string; // dynamic link
+};
+
+export type FaqItem = {
+  key: string;
+  delay?: string;
+  title: string;
+  body: string;
 };
 
 export type ServiceItem = {
@@ -96,14 +101,16 @@ export type ServiceItem = {
   image?: any;
 
   worldclassByCategory?: Record<string, WorldClassItem[]>;
-
-  // ✅ NEW
   videosByCategory?: Record<string, VideoItem[]>;
+  faqsByCategory?: Record<string, FaqItem[]>;
 };
 
 // ✅ SAME VIDEO FOR NOW (as you asked)
 const DEFAULT_YT = "";
 
+/* =========================
+   SERVICES (SOURCE)
+========================= */
 export const serviceboxdata: ServiceItem[] = [
   {
     id: 1,
@@ -124,7 +131,6 @@ export const serviceboxdata: ServiceItem[] = [
         { title: "Nutrition Plan & Lifestyle Coaching" },
         { title: "Follow-up Visits & Progress Monitoring" },
       ],
-
       "smart-balloon": [
         { title: "Assessment & Personalized Plan" },
         { title: "Swallowable Balloon Procedure" },
@@ -133,7 +139,6 @@ export const serviceboxdata: ServiceItem[] = [
         { title: "Metabolism & Habit Coaching" },
         { title: "Balloon Exit Naturally + After Plan" },
       ],
-
       "munjaro-sessions": [
         { title: "Doctor Consultation & Eligibility Check" },
         { title: "Baseline Measurements & Health History" },
@@ -142,7 +147,6 @@ export const serviceboxdata: ServiceItem[] = [
         { title: "Diet Routine + Lifestyle Guidance" },
         { title: "Monthly Review & Adjustments" },
       ],
-
       slimming: [
         { title: "Body Composition Analysis" },
         { title: "Goal Setting & Treatment Plan" },
@@ -153,19 +157,53 @@ export const serviceboxdata: ServiceItem[] = [
       ],
     },
 
-    // ✅ NEW: videosByCategory
-videosByCategory: {
-  "hair-transplant": [
-    {
-      id: 1,
-      delay: "0.2s",
-      image: IMAGES.team1,
-      videoUrl: "https://www.youtube.com/watch?v=YcxiUn7k0Ks",
+    videosByCategory: {
+      "surgical-balloon": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "smart-balloon": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      "munjaro-sessions": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+      slimming: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
     },
-  ],
-  "beard-transplant": [],
-  "eyebrow-transplant": [],
-},
+
+    faqsByCategory: {
+      "surgical-balloon": [
+        {
+          key: "0",
+          delay: "0.5s",
+          title: "Is the balloon procedure painful?",
+          body: "It’s typically done endoscopically with sedation. Mild discomfort can happen for a few days.",
+        },
+        {
+          key: "1",
+          delay: "0.6s",
+          title: "How much weight can I lose?",
+          body: "Results vary, but many patients see meaningful loss when combined with diet and lifestyle support.",
+        },
+      ],
+      "smart-balloon": [
+        {
+          key: "0",
+          delay: "0.5s",
+          title: "Do I need anesthesia for Smart Balloon?",
+          body: "No, it’s swallowable and usually does not require anesthesia or endoscopy for placement.",
+        },
+      ],
+      "munjaro-sessions": [
+        {
+          key: "0",
+          delay: "0.5s",
+          title: "Who is eligible for Munjaro sessions?",
+          body: "Eligibility depends on BMI, medical history, and a doctor’s assessment.",
+        },
+      ],
+      slimming: [
+        {
+          key: "0",
+          delay: "0.5s",
+          title: "Is slimming treatment non-invasive?",
+          body: "Many slimming options are non-invasive and require multiple sessions for best results.",
+        },
+      ],
+    },
   },
 
   {
@@ -198,7 +236,6 @@ videosByCategory: {
         { title: "Immediate Aftercare Guidance" },
         { title: "Follow-up & Healing Review" },
       ],
-
       "double-chin": [
         { title: "Facial Assessment & Goal Discussion" },
         { title: "Choose Approach (Injection / Liposuction)" },
@@ -207,7 +244,6 @@ videosByCategory: {
         { title: "Recovery Support & Aftercare" },
         { title: "Result Monitoring & Touch-up Plan" },
       ],
-
       blepharoplasty: [
         { title: "Eye Assessment & Surgical Planning" },
         { title: "Pre-op Testing & Safety Checks" },
@@ -216,7 +252,6 @@ videosByCategory: {
         { title: "Stitch Care & Follow-up Appointment" },
         { title: "Final Healing & Results Review" },
       ],
-
       rhinoplasty: [
         { title: "Consultation & Facial Analysis" },
         { title: "Nose Design Planning & Expectations" },
@@ -225,7 +260,6 @@ videosByCategory: {
         { title: "Recovery Plan (Splint/Care Guide)" },
         { title: "Follow-ups & Outcome Review" },
       ],
-
       "face-lift": [
         { title: "Consultation & Skin Laxity Assessment" },
         { title: "Surgical Plan & Natural Look Design" },
@@ -234,7 +268,6 @@ videosByCategory: {
         { title: "Swelling Care & Healing Monitoring" },
         { title: "Follow-up & Final Result Review" },
       ],
-
       "breast-lift": [
         { title: "Consultation & Measurements" },
         { title: "Lift Technique Selection" },
@@ -243,7 +276,6 @@ videosByCategory: {
         { title: "Support Garment & Aftercare" },
         { title: "Follow-up & Scar Care Plan" },
       ],
-
       "breast-implant": [
         { title: "Consultation & Size/Shape Selection" },
         { title: "Implant Type & Placement Planning" },
@@ -252,7 +284,6 @@ videosByCategory: {
         { title: "Recovery Plan & Activity Guidance" },
         { title: "Follow-ups & Final Review" },
       ],
-
       "tummy-tuck": [
         { title: "Consultation & Skin/Fat Assessment" },
         { title: "Surgical Plan & Expectation Setting" },
@@ -261,7 +292,6 @@ videosByCategory: {
         { title: "Compression & Recovery Guidance" },
         { title: "Follow-up & Scar Care Monitoring" },
       ],
-
       "360": [
         { title: "Body Analysis & Target Area Mapping" },
         { title: "Procedure Planning & Safety Checks" },
@@ -270,8 +300,6 @@ videosByCategory: {
         { title: "Compression & Recovery Support" },
         { title: "Follow-up & Result Tracking" },
       ],
-
-      // ✅ FIXED KEY: must match slugify("Liposuction (Tummy, legs, hands)")
       "liposuction-tummy-legs-hands": [
         { title: "Consultation & Target Area Planning" },
         { title: "Pre-op Tests & Medical Clearance" },
@@ -293,6 +321,39 @@ videosByCategory: {
       "tummy-tuck": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
       "360": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
       "liposuction-tummy-legs-hands": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+    },
+
+    faqsByCategory: {
+      "local-anesthesia-procedures": [
+        { key: "0", delay: "0.5s", title: "Is local anesthesia safe?", body: "Yes, it’s commonly used and monitored closely by medical staff." },
+      ],
+      "double-chin": [
+        { key: "0", delay: "0.5s", title: "How long to see results?", body: "Some results appear early, final results depend on the procedure and healing timeline." },
+      ],
+      blepharoplasty: [
+        { key: "0", delay: "0.5s", title: "How long is recovery?", body: "Most swelling reduces within 1–2 weeks; full healing may take longer." },
+      ],
+      rhinoplasty: [
+        { key: "0", delay: "0.5s", title: "Will the nose look natural?", body: "The goal is a balanced, natural look based on your facial features and plan." },
+      ],
+      "face-lift": [
+        { key: "0", delay: "0.5s", title: "How long do results last?", body: "Results can last many years, depending on lifestyle and skin quality." },
+      ],
+      "breast-lift": [
+        { key: "0", delay: "0.5s", title: "Are scars visible?", body: "Scars fade over time and are placed strategically; care instructions help improve healing." },
+      ],
+      "breast-implant": [
+        { key: "0", delay: "0.5s", title: "Can I choose implant size?", body: "Yes, sizing is planned with you during consultation based on goals and anatomy." },
+      ],
+      "tummy-tuck": [
+        { key: "0", delay: "0.5s", title: "When can I return to work?", body: "Many patients return in 1–2 weeks depending on activity level and healing." },
+      ],
+      "360": [
+        { key: "0", delay: "0.5s", title: "What does 360 include?", body: "It usually refers to body contouring around the midsection for a more balanced shape." },
+      ],
+      "liposuction-tummy-legs-hands": [
+        { key: "0", delay: "0.5s", title: "Is liposuction a weight-loss solution?", body: "It’s mainly for contouring; best for stubborn fat areas, not overall weight loss." },
+      ],
     },
   },
 
@@ -330,7 +391,6 @@ videosByCategory: {
         { title: "Aftercare & Swelling Guidance" },
         { title: "Follow-up & Results Review" },
       ],
-
       sculptra: [
         { title: "Skin Assessment & Volume Planning" },
         { title: "Session Plan (Multiple Treatments)" },
@@ -339,7 +399,6 @@ videosByCategory: {
         { title: "Massage/Aftercare Instructions" },
         { title: "Follow-up & Progress Tracking" },
       ],
-
       olidia: [
         { title: "Consultation & Skin Evaluation" },
         { title: "Goal Setting & Treatment Mapping" },
@@ -348,7 +407,6 @@ videosByCategory: {
         { title: "Aftercare & Protection Guidance" },
         { title: "Follow-up & Results Review" },
       ],
-
       exosome: [
         { title: "Consultation & Skin Needs Analysis" },
         { title: "Treatment Plan (Sessions + Timeline)" },
@@ -357,7 +415,6 @@ videosByCategory: {
         { title: "Aftercare & Recovery Support" },
         { title: "Follow-up & Outcome Monitoring" },
       ],
-
       peeling: [
         { title: "Skin Assessment & Peel Selection" },
         { title: "Cleansing & Skin Preparation" },
@@ -366,7 +423,6 @@ videosByCategory: {
         { title: "Aftercare Guidance (Sun Protection)" },
         { title: "Follow-up Session (If Needed)" },
       ],
-
       "lip-filler": [
         { title: "Consultation & Lip Shape Planning" },
         { title: "Pre-treatment Prep & Numbing" },
@@ -375,7 +431,6 @@ videosByCategory: {
         { title: "Symmetry Check & Adjustments" },
         { title: "Follow-up & Final Review" },
       ],
-
       "under-eye": [
         { title: "Assessment (Hollows / Dark Circles)" },
         { title: "Choose Approach (Filler / PRP)" },
@@ -384,7 +439,6 @@ videosByCategory: {
         { title: "Aftercare & Swelling Control" },
         { title: "Follow-up & Results Review" },
       ],
-
       "botox-face": [
         { title: "Facial Muscle Assessment" },
         { title: "Treatment Plan & Dose Mapping" },
@@ -393,7 +447,6 @@ videosByCategory: {
         { title: "Aftercare Instructions (Do/Don’t)" },
         { title: "Follow-up & Touch-up (If Needed)" },
       ],
-
       "under-arms": [
         { title: "Assessment & Goal Discussion" },
         { title: "Choose Treatment (Botox / Laser etc.)" },
@@ -402,7 +455,6 @@ videosByCategory: {
         { title: "Aftercare Guidance" },
         { title: "Follow-up & Progress Tracking" },
       ],
-
       "rejuvenation-prp": [
         { title: "Consultation & Skin Assessment" },
         { title: "Blood Draw & PRP Preparation" },
@@ -411,7 +463,6 @@ videosByCategory: {
         { title: "Aftercare & Recovery Support" },
         { title: "Follow-up & Results Review" },
       ],
-
       meso: [
         { title: "Consultation & Skin Goals Review" },
         { title: "Serum Selection & Treatment Plan" },
@@ -420,7 +471,6 @@ videosByCategory: {
         { title: "Aftercare & Hydration Guidance" },
         { title: "Follow-up & Ongoing Plan" },
       ],
-
       "skin-booster": [
         { title: "Skin Assessment & Booster Selection" },
         { title: "Treatment Plan & Session Scheduling" },
@@ -429,7 +479,6 @@ videosByCategory: {
         { title: "Aftercare & Glow Maintenance" },
         { title: "Follow-up & Review" },
       ],
-
       profhilo: [
         { title: "Consultation & Suitability Assessment" },
         { title: "Injection Points Planning" },
@@ -438,7 +487,6 @@ videosByCategory: {
         { title: "Aftercare & Hydration Support" },
         { title: "Follow-up & Second Session Plan" },
       ],
-
       jalupro: [
         { title: "Consultation & Skin Quality Review" },
         { title: "Treatment Mapping & Plan" },
@@ -465,6 +513,30 @@ videosByCategory: {
       profhilo: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
       jalupro: [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
     },
+
+    faqsByCategory: {
+      "body-filler": [
+        { key: "0", delay: "0.5s", title: "How long do fillers last?", body: "Depending on the type, results often last from 6 to 18 months." },
+      ],
+      sculptra: [
+        { key: "0", delay: "0.5s", title: "How many sessions do I need?", body: "Usually multiple sessions are planned based on your goals and skin response." },
+      ],
+      peeling: [
+        { key: "0", delay: "0.5s", title: "Will I peel after treatment?", body: "Light peeling is common. Your clinician will guide you based on peel strength." },
+      ],
+      "lip-filler": [
+        { key: "0", delay: "0.5s", title: "Do lips look natural?", body: "Yes—shape and volume are customized to your face and desired outcome." },
+      ],
+      "under-eye": [
+        { key: "0", delay: "0.5s", title: "Is under-eye treatment safe?", body: "Yes, when performed by trained professionals with correct product selection." },
+      ],
+      "botox-face": [
+        { key: "0", delay: "0.5s", title: "When does Botox start working?", body: "You may notice changes in 3–5 days, with full results in about 10–14 days." },
+      ],
+      "skin-booster": [
+        { key: "0", delay: "0.5s", title: "What does a skin booster do?", body: "It hydrates the skin from within to improve glow, texture, and elasticity." },
+      ],
+    },
   },
 
   {
@@ -486,7 +558,6 @@ videosByCategory: {
         { title: "Recovery & Aftercare Guidance" },
         { title: "Growth Monitoring & Follow-ups" },
       ],
-
       "beard-transplant": [
         { title: "Consultation & Beard Design Planning" },
         { title: "Donor Area Assessment" },
@@ -495,7 +566,6 @@ videosByCategory: {
         { title: "Aftercare & Healing Support" },
         { title: "Follow-up & Growth Monitoring" },
       ],
-
       "eyebrow-transplant": [
         { title: "Consultation & Brow Shape Design" },
         { title: "Donor Hair Selection & Mapping" },
@@ -510,6 +580,39 @@ videosByCategory: {
       "hair-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: "https://www.youtube.com/watch?v=YcxiUn7k0Ks" }],
       "beard-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
       "eyebrow-transplant": [{ id: 1, delay: "0.2s", image: IMAGES.team1, videoUrl: DEFAULT_YT }],
+    },
+
+    faqsByCategory: {
+      "hair-transplant": [
+        {
+          key: "0",
+          delay: "0.5s",
+          title: "How long does the procedure take?",
+          body: "Most sessions take 6–8 hours depending on graft count and technique.",
+        },
+        {
+          key: "1",
+          delay: "0.6s",
+          title: "When will I see results?",
+          body: "Initial growth typically starts around 3 months, with fuller results by 9–12 months.",
+        },
+      ],
+      "beard-transplant": [
+        {
+          key: "0",
+          delay: "0.5s",
+          title: "Is beard transplant permanent?",
+          body: "Yes, transplanted follicles are taken from donor area and grow permanently like natural hair.",
+        },
+      ],
+      "eyebrow-transplant": [
+        {
+          key: "0",
+          delay: "0.5s",
+          title: "Does eyebrow transplant look natural?",
+          body: "Yes, correct angle placement helps it blend naturally with existing brow hair.",
+        },
+      ],
     },
   },
 ];
@@ -539,7 +642,6 @@ const servicesTopNav: HeaderItem[] = serviceboxdata.map((s) => {
 export const headerdata: HeaderItem[] = [
   { title: "Home", to: "/" },
   { title: "About Us", to: "/about-us" },
-
   {
     title: "Team",
     classChange: "sub-menu-down",
@@ -548,11 +650,8 @@ export const headerdata: HeaderItem[] = [
       { title: "Team Detail", to: "/team-detail" },
     ],
   },
-
   { title: "Gallery", to: "/gallery" },
-
   ...servicesTopNav,
-
   {
     title: "Blogs",
     classChange: "sub-menu-down",
@@ -561,7 +660,6 @@ export const headerdata: HeaderItem[] = [
       { title: "Blog List Sidebar", to: "/blog-list-sidebar" },
     ],
   },
-
   { title: "Contact Us", to: "/contact-us" },
 ];
 
@@ -631,38 +729,42 @@ export const footerdata = [
     ],
     delay: "1.0s",
   },
+
+  // ✅ REPLACED: Our Contacts -> Social Media
   {
-    title: "Our Contacts",
+    title: "Social Media",
     items: [
       {
-        icon: <i className="feather icon-map-pin" />,
+        icon: <i className="feather icon-facebook" />,
         label: (
-          <>
-            123 Medical Street,
-            <br />
-            New York, NY 10001
-          </>
-        ),
-      },
-      {
-        icon: <i className="feather icon-phone" />,
-        label: (
-          <Link href="tel:+11234567890" className="text-body">
-            +1 123 456 7890
+          <Link href="https://facebook.com" target="_blank" className="text-body">
+            Facebook
           </Link>
         ),
       },
       {
-        icon: <i className="feather icon-mail" />,
+        icon: <i className="feather icon-instagram" />,
         label: (
-          <Link href="mailto:info@example.com" className="text-body">
-            info@example.com
+          <Link href="https://instagram.com" target="_blank" className="text-body">
+            Instagram
           </Link>
         ),
       },
       {
-        icon: <i className="feather icon-clock" />,
-        label: "Mon – Sat: 7:00 AM – 5:00 PM",
+        icon: <i className="feather icon-twitter" />,
+        label: (
+          <Link href="https://x.com" target="_blank" className="text-body">
+            X (Twitter)
+          </Link>
+        ),
+      },
+      {
+        icon: <i className="feather icon-youtube" />,
+        label: (
+          <Link href="https://youtube.com" target="_blank" className="text-body">
+            YouTube
+          </Link>
+        ),
       },
     ],
     delay: "1.2s",
@@ -816,6 +918,7 @@ export const countupdata = [
   { title: "Winning Awards", delay: "0.8s", countup: 150, span: "+" },
 ];
 
+// ✅ Keep as fallback general FAQ list (optional, not used if you use faqsByCategory)
 export const accordiondata = [
   { delay: "0.5s", key: "0", title: "How much do you charge for pedicure ?" },
   { delay: "0.6s", key: "1", title: "What types of treatments do you offer?" },

@@ -1,6 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { useParams } from "next/navigation";
 
 import Header from "@/layout/Header";
 import Footer from "@/layout/Footer";
@@ -10,33 +13,44 @@ import { serviceboxdata } from "@/constant/alldata";
 import AccordionBlog from "../../_components/AccordionBlog";
 import SurgeryBlog from "../../_components/SurgeryBlog";
 
-
-
-type Props = {
-  params: Promise<{
-    slug: string;
-    category: string;
-  }>;
+type VideoItem = {
+  id: number;
+  delay?: string;
+  videoUrl: string;
+  image?: any;
 };
 
-export default async function CategoryDetailPage({ params }: Props) {
-  const { slug, category } = await params;
+export default function CategoryDetailPage() {
+  const params = useParams();
+  const slug = params?.slug as string;
+  const category = params?.category as string;
+
+  const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const service = serviceboxdata.find((x) => x.slug === slug);
-  if (!service) return notFound();
 
-  const categoryName = category
+  if (!service) {
+    return <div>Service not found</div>;
+  }
+
+  const categorySlug = category;
+
+  const categoryName = categorySlug
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
   const categoryExists = service.services.some(
-    (s) => s.toLowerCase().replace(/\s+/g, "-") === category
+    (s) => s.toLowerCase().replace(/\s+/g, "-") === categorySlug
   );
 
-  if (!categoryExists) return notFound();
+  if (!categoryExists) {
+    return <div>Category not found</div>;
+  }
 
-  const categorySlug = category;
+  // ✅ Dynamic FAQs per category
+  const faqs = service.faqsByCategory?.[categorySlug] ?? [];
 
   const worldclasslistdata =
     service.worldclassByCategory?.[categorySlug] ?? [
@@ -51,14 +65,37 @@ export default async function CategoryDetailPage({ params }: Props) {
       { title: "Multidisciplinary Team" },
       { title: "Health Information Technology" },
     ];
-    const videos = service.videosByCategory?.[categorySlug] ?? [];
+
+  // ✅ Fetch videos from API
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/services/${slug}/${categorySlug}/videos`);
+
+        if (res.ok) {
+          const data = await res.json();
+          setVideos(data.videos || []);
+        } else {
+          console.error("Failed to fetch videos, status:", res.status);
+          setVideos([]);
+        }
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+        setVideos([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVideos();
+  }, [slug, categorySlug]);
 
   return (
     <>
       <Header />
 
       <main className="page-content">
-        {/* ✅ Breadcrumb now inside banner */}
         <PageBanner
           title={categoryName}
           bnrimage={IMAGES.bnr2.src}
@@ -72,17 +109,20 @@ export default async function CategoryDetailPage({ params }: Props) {
 
         <section className="content-inner category-detail">
           <div className="container">
-            {/* ✅ Removed breadcrumb from here */}
-
             <div className="row">
               {/* LEFT CONTENT */}
               <div className="col-lg-8">
                 <div className="category-hero wow fadeInUp" data-wow-delay="0.1s">
-                  <Image
-                    src={IMAGES.bloggrid2}
-                    alt={categoryName}
-                    className="object-fit-cover"
-                  />
+                  {/* ✅ Next Image fix (keeps same look) */}
+                  <div style={{ position: "relative", width: "100%", height: 420 }}>
+                    <Image
+                      src={IMAGES.bloggrid2}
+                      alt={categoryName}
+                      fill
+                      className="object-fit-cover"
+                      priority
+                    />
+                  </div>
                 </div>
 
                 <div className="content-block wow fadeInUp" data-wow-delay="0.2s">
@@ -109,41 +149,7 @@ export default async function CategoryDetailPage({ params }: Props) {
                   </p>
                 </div>
 
-                {/* <div className="content-block wow fadeInUp" data-wow-delay="0.4s">
-                  <h2 className="block-title">Benefits of {categoryName}</h2>
-                  <div className="benefits-grid">
-                    <div className="benefit-card">
-                      <div className="benefit-icon">
-                        <i className="feather icon-check-circle"></i>
-                      </div>
-                      <h4>Safe & Proven</h4>
-                      <p>Clinically tested and approved procedures</p>
-                    </div>
-                    <div className="benefit-card">
-                      <div className="benefit-icon">
-                        <i className="feather icon-zap"></i>
-                      </div>
-                      <h4>Quick Results</h4>
-                      <p>See noticeable improvements quickly</p>
-                    </div>
-                    <div className="benefit-card">
-                      <div className="benefit-icon">
-                        <i className="feather icon-clock"></i>
-                      </div>
-                      <h4>Minimal Downtime</h4>
-                      <p>Return to normal activities faster</p>
-                    </div>
-                    <div className="benefit-card">
-                      <div className="benefit-icon">
-                        <i className="feather icon-award"></i>
-                      </div>
-                      <h4>Expert Care</h4>
-                      <p>Performed by certified specialists</p>
-                    </div>
-                  </div>
-                </div> */}
-
-                <div className="content-item wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
+                <div className="content-item wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.7s">
                   <h3>Steps in {categoryName}</h3>
                   <ul className="list-check text-secondary m-b30 worldclass-steps">
                     {worldclasslistdata.map((item, i) => (
@@ -180,12 +186,29 @@ export default async function CategoryDetailPage({ params }: Props) {
                   </div>
                 </div>
 
+                {/* ✅ FAQ section */}
                 <div className="content-block wow fadeInUp" data-wow-delay="0.7s">
                   <h2 className="block-title">Frequently Asked Questions</h2>
-                  <AccordionBlog />
+
+                  {/* ✅ PASS the faqs */}
+                  <AccordionBlog faqs={faqs} defaultActiveKey={faqs[0]?.key ?? "0"} />
                 </div>
 
-               {videos.length > 0 && <SurgeryBlog videos={videos} />}
+                {/* ✅ Videos section */}
+                {loading ? (
+                  <div className="text-center py-4">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading videos...</span>
+                    </div>
+                  </div>
+                ) : (
+                  videos.length > 0 && (
+                    <div className="content-block wow fadeInUp" data-wow-delay="0.8s">
+                      <h2 className="block-title">Treatment Videos</h2>
+                      <SurgeryBlog videos={videos} />
+                    </div>
+                  )
+                )}
               </div>
 
               {/* RIGHT SIDEBAR */}
@@ -233,75 +256,56 @@ export default async function CategoryDetailPage({ params }: Props) {
                         ))}
                     </ul>
 
-                    <Link
-                      href={`/service-detail/${service.slug}`}
-                      className="view-all-link"
-                    >
+                    <Link href={`/service-detail/${service.slug}`} className="view-all-link">
                       View All Treatments <i className="feather icon-arrow-right"></i>
                     </Link>
                   </div>
 
-                  {/* <div
-                    className="widget_contact wow fadeInUp"
-                    style={{ backgroundImage: `url(${IMAGES.bg3png.src})` }}
-                    data-wow-delay="0.4s"
-                  >
-                    <div className="widget-content">
-                      <Image src={IMAGES.question} width={80} alt="Help" />
-                      <h4 className="title">Have Questions?</h4>
-                      <p>We're here to help you</p>
-
-                      <div className="contact-links">
-                        <Link href="tel:+11234567890" className="contact-link">
-                          <i className="feather icon-phone"></i>
-                          +1 123 456 7890
-                        </Link>
-                        <Link href="mailto:info@support.com" className="contact-link">
-                          <i className="feather icon-mail"></i>
-                          info@support.com
-                        </Link>
+                  <div className="widget widget_info bg-light wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
+                    <div className="icon-bx-wraper style-1 m-b20">
+                      <div className="icon-bx bg-primary">
+                        <span className="icon-cell">
+                          <i className="feather icon-map-pin" />
+                        </span>
                       </div>
-
-                      <Link href="/contact-us" className="btn btn-white btn-block btn-shadow">
-                        Contact Us
-                      </Link>
+                      <div className="icon-content">
+                        <h5 className="dz-title fw-semibold">Address</h5>
+                        <p className="fw-normal">234 Oak Drive, Villagetown, USA</p>
+                      </div>
                     </div>
-                  </div> */}
-                    <div className="widget widget_info bg-light wow fadeInUp" data-wow-delay="0.3s" data-wow-duration="0.7s">
-                                                          <div className="icon-bx-wraper style-1 m-b20">
-                                                              <div className="icon-bx bg-primary">
-                                                                  <span className="icon-cell">
-                                                                      <i className="feather icon-map-pin" />
-                                                                  </span>
-                                                              </div>
-                                                              <div className="icon-content">
-                                                                  <h5 className="dz-title fw-semibold">Address</h5>
-                                                                  <p className="fw-normal">234 Oak Drive, Villagetown, USA</p>
-                                                              </div>
-                                                          </div>
-                                                          <div className="icon-bx-wraper style-1 m-b20">
-                                                              <div className="icon-bx bg-primary">
-                                                                  <span className="icon-cell">
-                                                                      <i className="feather icon-phone" />
-                                                                  </span>
-                                                              </div>
-                                                              <div className="icon-content">
-                                                                  <h5 className="dz-title fw-semibold">Call Us</h5>
-                                                                  <p className="fw-normal"><Link href="tel:+11234567890" className="text-body">+1 123 456 7890</Link></p>
-                                                              </div>
-                                                          </div>
-                                                          <div className="icon-bx-wraper style-1 m-b15">
-                                                              <div className="icon-bx bg-primary">
-                                                                  <span className="icon-cell">
-                                                                      <i className="feather icon-mail" />
-                                                                  </span>
-                                                              </div>
-                                                              <div className="icon-content">
-                                                                  <h5 className="dz-title fw-semibold">Send us a Mail</h5>
-                                                                  <p className="fw-normal"><Link href="mailto:info@example.com" className="text-body">info@example.com</Link></p>
-                                                              </div>
-                                                          </div>
-                                                      </div>
+
+                    <div className="icon-bx-wraper style-1 m-b20">
+                      <div className="icon-bx bg-primary">
+                        <span className="icon-cell">
+                          <i className="feather icon-phone" />
+                        </span>
+                      </div>
+                      <div className="icon-content">
+                        <h5 className="dz-title fw-semibold">Call Us</h5>
+                        <p className="fw-normal">
+                          <Link href="tel:+11234567890" className="text-body">
+                            +1 123 456 7890
+                          </Link>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="icon-bx-wraper style-1 m-b15">
+                      <div className="icon-bx bg-primary">
+                        <span className="icon-cell">
+                          <i className="feather icon-mail" />
+                        </span>
+                      </div>
+                      <div className="icon-content">
+                        <h5 className="dz-title fw-semibold">Send us a Mail</h5>
+                        <p className="fw-normal">
+                          <Link href="mailto:info@example.com" className="text-body">
+                            info@example.com
+                          </Link>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </aside>
               </div>
             </div>
