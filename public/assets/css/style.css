@@ -47800,3 +47800,21 @@ pre {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.4); opacity: 0; }
 }
+
+/* footer  */
+.social-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.social-row a {
+  font-size: 22px;
+  color: #5b6c8f; /* your theme color */
+  transition: all 0.3s ease;
+}
+
+.social-row a:hover {
+  color: var(--primary);
+  transform: translateY(-3px);
+}

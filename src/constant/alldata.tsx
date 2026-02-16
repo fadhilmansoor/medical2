@@ -732,43 +732,57 @@ export const footerdata = [
 
   // ✅ REPLACED: Our Contacts -> Social Media
   {
-    title: "Social Media",
-    items: [
-      {
-        icon: <i className="feather icon-facebook" />,
-        label: (
-          <Link href="https://facebook.com" target="_blank" className="text-body">
-            Facebook
+  title: "Our Contacts",
+  items: [
+    {
+      icon: <i className="feather icon-map-pin" />,
+      label: (
+        <>
+          123 Medical Street,
+          <br />
+          New York, NY 10001
+        </>
+      ),
+    },
+    {
+      icon: <i className="feather icon-phone" />,
+      label: (
+        <Link href="tel:+11234567890" className="text-body">
+          +1 123 456 7890
+        </Link>
+      ),
+    },
+    {
+      icon: <i className="feather icon-mail" />,
+      label: (
+        <Link href="mailto:info@example.com" className="text-body">
+          info@example.com
+        </Link>
+      ),
+    },
+    {
+      icon: null,
+      label: (
+        <div className="social-row">
+          <Link href="https://facebook.com" target="_blank">
+            <i className="feather icon-facebook" />
           </Link>
-        ),
-      },
-      {
-        icon: <i className="feather icon-instagram" />,
-        label: (
-          <Link href="https://instagram.com" target="_blank" className="text-body">
-            Instagram
+          <Link href="https://instagram.com" target="_blank">
+            <i className="feather icon-instagram" />
           </Link>
-        ),
-      },
-      {
-        icon: <i className="feather icon-twitter" />,
-        label: (
-          <Link href="https://x.com" target="_blank" className="text-body">
-            X (Twitter)
+          <Link href="https://x.com" target="_blank">
+            <i className="feather icon-twitter" />
           </Link>
-        ),
-      },
-      {
-        icon: <i className="feather icon-youtube" />,
-        label: (
-          <Link href="https://youtube.com" target="_blank" className="text-body">
-            YouTube
+          <Link href="https://youtube.com" target="_blank">
+            <i className="feather icon-youtube" />
           </Link>
-        ),
-      },
-    ],
-    delay: "1.2s",
-  },
+        </div>
+      ),
+    },
+  ],
+  delay: "1.2s",
+}
+
 ];
 
 /* =========================
