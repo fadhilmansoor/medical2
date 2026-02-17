@@ -316,7 +316,7 @@ function HomePage() {
         </section>
 
         <Howitwork />
-          <Frequently /> 
+         
         <StayInformed />
         <MapWraper />
       </main>

@@ -3,6 +3,7 @@
 import { Modal } from "react-bootstrap";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import styles from "./SurgeryBlog.module.css";
 
 export type VideoItem = {
   id: number;
@@ -11,17 +12,16 @@ export type VideoItem = {
   image?: any;
 };
 
-type Props = {
-  videos?: VideoItem[];
-};
+type Props = { videos?: VideoItem[] };
 
-// ---------------- helpers ----------------
+// helpers
 function getYoutubeId(url: string) {
   try {
     const u = new URL(url);
     if (u.hostname.includes("youtu.be")) return u.pathname.replace("/", "");
     const v = u.searchParams.get("v");
     if (v) return v;
+
     const parts = u.pathname.split("/");
     const embedIndex = parts.indexOf("embed");
     if (embedIndex >= 0 && parts[embedIndex + 1]) return parts[embedIndex + 1];
@@ -36,8 +36,7 @@ function getYoutubeThumb(url: string) {
   return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "";
 }
 
-// ---------------- component ----------------
-const SurgeryBlog = ({ videos = [] }: Props) => {
+export default function SurgeryBlog({ videos = [] }: Props) {
   const [show, setShow] = useState(false);
   const [activeVideoId, setActiveVideoId] = useState("");
   const [isMobile, setIsMobile] = useState(false);
@@ -67,86 +66,80 @@ const SurgeryBlog = ({ videos = [] }: Props) => {
   if (!list.length) return null;
 
   return (
-    <>
+    <div className={styles.surgeryBlog}>
       {isMobile ? (
-        // ---------------- MOBILE CAROUSEL ----------------
-        <div className="mobile-carousel">
+        // MOBILE CAROUSEL
+        <div className={styles.mbContainer}>
           <div
-            className="carousel-track"
+            className={styles.mbTrack}
             style={{ transform: `translateX(-${index * 100}%)` }}
           >
             {list.map((item, i) => (
-              <div className="carousel-slide" key={item.id ?? i}>
-                <div className="dz-team style-1 box-hover">
-                  <div className="dz-media">
-                    <Image
-                      src={getYoutubeThumb(item.videoUrl) || item.image}
-                      alt="Video"
-                      width={900}
-                      height={600}
-                      style={{ width: "100%", height: "auto" }}
-                    />
+              <div className={styles.mbSlide} key={item.id ?? i}>
+                <div className={styles.mbFrame}>
+                  <Image
+                    src={getYoutubeThumb(item.videoUrl) || item.image}
+                    alt="Video"
+                    fill
+                    className={styles.mbImg}
+                    sizes="100vw"
+                    priority={i === 0}
+                  />
 
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={() => openVideo(item.videoUrl)}
-                    >
-                      <i className="fa fa-play m-r5" /> Watch Video
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    className={styles.mbPlayBtn}
+                    onClick={() => openVideo(item.videoUrl)}
+                    aria-label="Watch video"
+                  >
+                    <i className="fa fa-play" />
+                  </button>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="carousel-dots">
+          <div className={styles.mbDots}>
             {list.map((_, i) => (
               <button
                 key={i}
-                className={i === index ? "dot active" : "dot"}
+                className={`${styles.mbDot} ${i === index ? styles.mbDotActive : ""}`}
                 onClick={() => setIndex(i)}
+                aria-label={`Go to slide ${i + 1}`}
               />
             ))}
           </div>
         </div>
       ) : (
-        // ---------------- DESKTOP GRID (UNCHANGED CSS) ----------------
+        // DESKTOP GRID
         <div className="row">
           {list.map((item, i) => (
-            <div
-              className="col-xxl-4 col-sm-6"
-              key={item.id ?? i}
-            >
-              <div className="dz-team style-1 box-hover">
-                <div className="dz-media">
-                  <Image
-                    src={getYoutubeThumb(item.videoUrl) || item.image}
-                    alt="Video"
-                    width={900}
-                    height={600}
-                    style={{ width: "100%", height: "auto" }}
-                  />
+            <div className={`col-xxl-4 col-sm-6 ${styles.videoCard}`} key={item.id ?? i}>
+              <div className={styles.teamCard}>
+             <div className={styles.teamMedia}>
+  <Image
+    src={getYoutubeThumb(item.videoUrl) || item.image}
+    alt="Video"
+    fill
+    className={styles.teamImg}
+    sizes="(min-width: 1400px) 33vw, (min-width: 576px) 50vw, 100vw"
+  />
 
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => openVideo(item.videoUrl)}
-                  >
-                    <i className="fa fa-play m-r5" /> Watch Video
-                  </button>
-                </div>
+<button
+  type="button"
+  className={styles.watchBtn}
+  onClick={() => openVideo(item.videoUrl)}
+>
+  <i className="fa fa-play" /> Watch Video
+</button>
+</div>
 
-                <div className="dz-content">
-                  <div className="clearfix" />
-                </div>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {/* ---------------- MODAL ---------------- */}
       <Modal show={show} onHide={closeVideo} centered size="lg">
         <Modal.Body style={{ padding: 0 }}>
           {activeVideoId && (
@@ -161,48 +154,6 @@ const SurgeryBlog = ({ videos = [] }: Props) => {
           )}
         </Modal.Body>
       </Modal>
-
-      {/* ---------------- MOBILE CSS ---------------- */}
-      <style jsx>{`
-        .mobile-carousel {
-          overflow: hidden;
-          position: relative;
-        }
-
-        .carousel-track {
-          display: flex;
-          transition: transform 0.4s ease;
-        }
-
-        .carousel-slide {
-          min-width: 100%;
-          padding: 0 10px;
-          box-sizing: border-box;
-        }
-
-        .carousel-dots {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-          margin-top: 15px;
-        }
-
-        .dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          border: none;
-          background: #ccc;
-        }
-
-        .dot.active {
-          background: var(--primary);
-          width: 20px;
-          border-radius: 10px;
-        }
-      `}</style>
-    </>
+    </div>
   );
-};
-
-export default SurgeryBlog;
+}

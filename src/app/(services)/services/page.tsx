@@ -19,9 +19,10 @@ function Services() {
           className="content-inner bg-light"
           style={{ backgroundImage: `url(${IMAGES.bg5png.src})` }}
         >
-          <div className="container">
-            <ServicesAll /> {/* ✅ show all services + categories */}
-          </div>
+        <div className="container services-all-wrap">
+  <ServicesAll />
+</div>
+
         </section>
 
         <section
@@ -73,7 +74,7 @@ function Services() {
           <RealPatient />
         </section>
 
-          <Frequently /> 
+
       </main>
       <Footer />
     </>

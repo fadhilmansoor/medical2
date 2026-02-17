@@ -12,6 +12,9 @@ import { IMAGES } from "@/constant/theme";
 import { serviceboxdata } from "@/constant/alldata";
 import AccordionBlog from "../../_components/AccordionBlog";
 import SurgeryBlog from "../../_components/SurgeryBlog";
+import styles from "./category.module.css";
+
+
 
 type VideoItem = {
   id: number;
@@ -94,6 +97,10 @@ export default function CategoryDetailPage() {
   return (
     <>
       <Header />
+<div className="categoryHero">
+
+
+
 
       <main className="page-content">
         <PageBanner
@@ -112,19 +119,9 @@ export default function CategoryDetailPage() {
             <div className="row">
               {/* LEFT CONTENT */}
               <div className="col-lg-8">
-                <div className="category-hero wow fadeInUp" data-wow-delay="0.1s">
-                  {/* ✅ Next Image fix (keeps same look) */}
-                  <div style={{ position: "relative", width: "100%", height: 420 }}>
-                    <Image
-                      src={IMAGES.bloggrid2}
-                      alt={categoryName}
-                      fill
-                      className="object-fit-cover"
-                      priority
-                    />
-                  </div>
-                </div>
-
+            <div className="single-media dz-media single-media height-sm radius-lg wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="0.7s">
+                                    <Image src={IMAGES.bloggrid2} alt="" className="object-fit-cover" />
+                                </div>
                 <div className="content-block wow fadeInUp" data-wow-delay="0.2s">
                   <h1 className="category-main-title">{categoryName}</h1>
                   <p className="category-intro">
@@ -312,7 +309,7 @@ export default function CategoryDetailPage() {
           </div>
         </section>
       </main>
-
+</div>
       <Footer />
     </>
   );
