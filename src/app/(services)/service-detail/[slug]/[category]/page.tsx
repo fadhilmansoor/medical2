@@ -108,7 +108,7 @@ export default function CategoryDetailPage() {
           bnrimage={IMAGES.bnr2.src}
           breadcrumb={[
             { label: "Home", href: "/" },
-            { label: "Services", href: "/services" },
+            { label: "Services", href: "/service-detail" },
             { label: service.title, href: `/service-detail/${service.slug}` },
             { label: categoryName },
           ]}
