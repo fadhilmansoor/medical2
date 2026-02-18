@@ -263,7 +263,7 @@ function HomePage() {
       data-wow-delay="0.4s"
       data-wow-duration="0.8s"
     >
-      <Link href="/services" className="btn btn-icon btn-secondary font-body">
+      <Link href="/service-detail" className="btn btn-icon btn-secondary font-body">
         View All
         <span className="right-icon">
           <i className="feather icon-arrow-right" />
@@ -276,7 +276,7 @@ function HomePage() {
 
   {/* ✅ NEW Show More button (good for mobile + after list) */}
   <div className="text-center m-t30">
-    <Link href="/services" className="btn btn-primary btn-icon font-body">
+    <Link href="/service-detail" className="btn btn-primary btn-icon font-body">
       Show More Services
       <span className="right-icon">
         <i className="feather icon-arrow-right" />

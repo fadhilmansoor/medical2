@@ -1,11 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-        
-    images: {
-      unoptimized: true,
-    },    
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "i.ytimg.com" },
+      { protocol: "https", hostname: "img.youtube.com" },
+    ],
+    unoptimized: true, // ✅ if you want to disable optimization
+  },
 };
 
 export default nextConfig;

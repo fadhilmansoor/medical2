@@ -35,7 +35,7 @@ export default function ServiceDetailPage() {
             <div className="container">
               <h3>Service not found</h3>
               <p>Please check the URL or go back to services.</p>
-              <Link href="/services" className="btn btn-primary">
+              <Link href="/service-detail" className="btn btn-primary">
                 Back to Services
               </Link>
             </div>
@@ -58,7 +58,7 @@ export default function ServiceDetailPage() {
           breadcrumb={[
             { label: "Home", href: "/" },
             // अगर तुम्हें "Services" नहीं chahiye to is line ko remove kar do:
-            { label: "Services", href: "/services" },
+            { label: "Services", href: "/service-detail" },
             { label: current.title },
           ]}
         />
@@ -91,7 +91,7 @@ export default function ServiceDetailPage() {
                       return (
                         <div key={service} className="col-md-6 m-b30">
                           <Link
-                            href={`/service-detail/${current.slug}/${catSlug}`}
+                            href={`/${current.slug}/${catSlug}`}
                             className="dz-card style-1 d-block"
                           >
                             <div className="dz-media">

@@ -93,21 +93,9 @@ const getClinicIcon = (title: string, defaultIcon: any) => {
   return defaultIcon;
 };
 
-/** ✅ Premium descriptions */
-const getDescription = (title: string, isParent: boolean): string => {
+/** ✅ Descriptions (only for categories now) */
+const getDescription = (title: string): string => {
   const lower = title.toLowerCase();
-
-  if (isParent) {
-    if (lower.includes("weight"))
-      return "Medical weight programs with nutrition guidance, activity planning, and clinician-led monitoring.";
-    if (lower.includes("plastic"))
-      return "Board-certified procedures with detailed consultation, safety protocols, and personalized aftercare support.";
-    if (lower.includes("derma"))
-      return "Clinical dermatology and aesthetics for skin clarity, rejuvenation, and long-term confidence outcomes.";
-    if (lower.includes("hair"))
-      return "Advanced restoration options using modern techniques, careful planning, and structured follow-up care.";
-    return "Evidence-based medical services delivered with privacy, safety checks, and compassionate clinical support.";
-  }
 
   if (lower.includes("surgical balloon"))
     return "Endoscopic gastric balloon placement to support weight reduction under ongoing medical supervision.";
@@ -184,7 +172,6 @@ type FlatItem = {
   description: string;
   href: string;
   Icon: any;
-  isParent: boolean;
 };
 
 export default function ServicesAll() {
@@ -196,37 +183,25 @@ export default function ServicesAll() {
     const link = document.createElement("link");
     link.id = id;
     link.rel = "stylesheet";
-    link.href = "/assets/css/serviceall.module.css"; // ✅ from public
+    link.href = "/assets/css/serviceall.module.css"; // ✅ correct
     document.head.appendChild(link);
 
-    return () => {
-      link.remove(); // ✅ remove when leaving page
-    };
+    return () => link.remove();
   }, []);
 
+  // ✅ ONLY categories (no parent services)
   const flatItems: FlatItem[] = serviceboxdata.flatMap((service) => {
-    const parentBox: FlatItem = {
-      key: `service-${service.id}`,
-      title: service.title,
-      description: getDescription(service.title, true),
-      href: `/service-detail/${service.slug}`,
-      Icon: getClinicIcon(service.title, service.icon),
-      isParent: true,
-    };
-
-    const categoryBoxes: FlatItem[] = service.services.map((cat) => {
+    return service.services.map((cat) => {
       const catSlug = slugify(cat);
+
       return {
         key: `cat-${service.slug}-${catSlug}`,
         title: cat,
-        description: getDescription(cat, false),
-        href: `/service-detail/${service.slug}/${catSlug}`,
+        description: getDescription(cat),
+        href: `/service-detail/${service.slug}/${catSlug}`, // change to /service if you want
         Icon: getClinicIcon(cat, service.icon),
-        isParent: false,
       };
     });
-
-    return [parentBox, ...categoryBoxes];
   });
 
   return (
@@ -236,11 +211,7 @@ export default function ServicesAll() {
           const Icon = item.Icon;
 
           return (
-            <Link
-              key={item.key}
-              href={item.href}
-              className={`services-premium-card ${item.isParent ? "is-parent" : ""}`}
-            >
+            <Link key={item.key} href={item.href} className="services-premium-card">
               <div className="services-premium-icon-wrap">
                 <Icon className="services-premium-icon" size={30} strokeWidth={2.2} />
               </div>

@@ -715,7 +715,7 @@ export const footerdata = [
     title: "Quick Links",
     items: [
       { label: "About Us", link: "/about-us" },
-      { label: "Our Services", link: "/services" },
+      { label: "Our Services", link: "/service-detail" },
       { label: "Our Team", link: "/team" },
       { label: "Appointments", link: "/appointment" },
       { label: "Contact Us", link: "/contact-us" },
