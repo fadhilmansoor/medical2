@@ -17,11 +17,14 @@ function PageBanner({ title, bnrimage, breadcrumb }: Props) {
     typeof bnrimage === "string" ? bnrimage : (bnrimage as StaticImageData).src;
 
   // ✅ default breadcrumb (fallback)
-  const items: BreadcrumbItem[] =
+ const items: BreadcrumbItem[] =
     breadcrumb && breadcrumb.length
       ? breadcrumb
-      : [{ label: "Home", href: "/" }, { label: title }];
-
+      : [
+          { label: "Home", href: "/" },
+        
+          { label: title },
+        ];
   return (
     <>
       <div

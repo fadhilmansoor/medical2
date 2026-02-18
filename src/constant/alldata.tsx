@@ -642,14 +642,7 @@ const servicesTopNav: HeaderItem[] = serviceboxdata.map((s) => {
 export const headerdata: HeaderItem[] = [
   { title: "Home", to: "/" },
   { title: "About Us", to: "/about-us" },
-  {
-    title: "Team",
-    classChange: "sub-menu-down",
-    content: [
-      { title: "Team", to: "/team" },
-      { title: "Team Detail", to: "/team-detail" },
-    ],
-  },
+  { title: "Team", to: "/team" },
   { title: "Gallery", to: "/gallery" },
   ...servicesTopNav,
   {

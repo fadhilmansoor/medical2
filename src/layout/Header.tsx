@@ -14,7 +14,8 @@ function Header() {
   const form = useRef<HTMLFormElement | null>(null);
   const { sendEmail } = useEmailService();
 
-  const handleclick = (index: number) => setShow(index);
+  // ✅ toggle open/close
+  const handleclick = (index: number) => setShow((prev) => (prev === index ? null : index));
 
   function menuHandler(index: number) {
     setIsActive((prev) => (prev === index ? null : index));
@@ -36,7 +37,6 @@ function Header() {
     if (result.success) console.log("SUCCESS!", result.message);
     else console.error("FAILED...", result.message);
   };
-  
 
   return (
     <>
@@ -62,7 +62,10 @@ function Header() {
             </div>
           </div>
         </div>
-
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />  
         <div className={`sticky-header main-bar-wraper ${scroll ? "is-fixed" : ""}`}>
           <div className="main-bar clearfix bg-secondary text-white">
             <div className="container-fluid clearfix inner-bar">
@@ -72,12 +75,13 @@ function Header() {
                 </Link>
               </div>
 
-              {/* ✅ Hamburger: MOBILE ONLY (no CSS change, just bootstrap utility) */}
+              {/* ✅ Hamburger: MOBILE ONLY */}
               <button
                 onClick={() => handleclick(2)}
                 className={`w3menu-toggler navicon d-lg-none ${show === 2 ? "open" : ""}`}
                 type="button"
                 data-target="#W3Menu"
+                aria-label="Open menu"
               >
                 <span></span>
                 <span></span>
@@ -113,7 +117,13 @@ function Header() {
                             i === isActive ? "open" : ""
                           }`}
                         >
-                          <Link href={"#"} onClick={() => menuHandler(i)}>
+                          <Link
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              menuHandler(i);
+                            }}
+                          >
                             <span>{data.title}</span>{" "}
                             <i className="fas fa-chevron-down tabIndex" />
                           </Link>
@@ -136,52 +146,47 @@ function Header() {
                       );
                     }
 
-if (menuClassName === "sub-menu-down") {
-  const hasHref = typeof data.to === "string" && data.to.length > 0;
-  const hasChildren = Array.isArray(data.content) && data.content.length > 0;
+                    if (menuClassName === "sub-menu-down") {
+                      const hasHref = typeof data.to === "string" && data.to.length > 0;
+                      const hasChildren = Array.isArray(data.content) && data.content.length > 0;
 
-  return (
-    <li key={i} className={`sub-menu-down ${i === isActive ? "open" : ""}`}>
-      {/* ✅ MAIN TEXT CLICK = NAVIGATE (if data.to exists) */}
-      <Link
-        href={hasHref ? data.to! : "#"}
-        onClick={(e) => {
-          // if this item has no page (like Team/Blogs), then behave as toggle
-          if (!hasHref && hasChildren) {
-            e.preventDefault();
-            menuHandler(i);
-          }
-        }}
-      >
-        <span>{data.title}</span>
+                      return (
+                        <li key={i} className={`sub-menu-down ${i === isActive ? "open" : ""}`}>
+                          <Link
+                            href={hasHref ? (data.to as string) : "#"}
+                            onClick={(e) => {
+                              if (!hasHref && hasChildren) {
+                                e.preventDefault();
+                                menuHandler(i);
+                              }
+                            }}
+                          >
+                            <span>{data.title}</span>
 
-        {/* ✅ ONLY ICON CLICK = TOGGLE DROPDOWN */}
-        {hasChildren && (
-          <i
-            className="fas fa-chevron-down tabIndex"
-            onClick={(e) => {
-              e.preventDefault();     // stop link navigation
-              e.stopPropagation();    // stop bubble
-              menuHandler(i);         // open dropdown
-            }}
-          />
-        )}
-      </Link>
+                            {hasChildren && (
+                              <i
+                                className="fas fa-chevron-down tabIndex"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  menuHandler(i);
+                                }}
+                              />
+                            )}
+                          </Link>
 
-      {hasChildren && (
-        <ul className="sub-menu">
-          {data.content!.map((item, index) => (
-            <li key={index}>
-              <Link href={item.to}>{item.title}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </li>
-  );
-}
-
-
+                          {hasChildren && (
+                            <ul className="sub-menu">
+                              {data.content!.map((item, index) => (
+                                <li key={index}>
+                                  <Link href={item.to}>{item.title}</Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      );
+                    }
 
                     return (
                       <li key={i}>
@@ -222,6 +227,31 @@ if (menuClassName === "sub-menu-down") {
               <div className={`extra-nav ${scroll ? "active" : ""}`}>
                 <div className="extra-cell">
                   <ul className="header-right">
+                    {/* ✅ MOBILE ONLY icons (as you requested) */}
+                    <li className="nav-item item-btn hide-desktop">
+                      <a
+                        href="tel:+11234567890"
+                        aria-label="Call"
+                        className="bg-transparent border-0 p-0 m-0 inline-flex items-center justify-center text-blue-600 hover:text-blue-700 transition"
+                        style={{ background: "none", boxShadow: "none" }}
+                      >
+                        <i className="feather icon-phone-call dz-ring-effect"></i>
+                      </a>
+                    </li>
+
+                    <li className="nav-item item-btn hide-desktop">
+                      <a
+                        href="https://wa.me/11234567890"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="WhatsApp"
+                        className="bg-transparent border-0 p-0 m-0 inline-flex items-center justify-center text-green-500 hover:text-green-600 transition"
+                        style={{ background: "none", boxShadow: "none" }}
+                      >
+                        <i className="fa-brands fa-whatsapp text-[22px] leading-none"></i>
+                      </a>
+                    </li>
+
                     <li className="nav-item">
                       <Link href="/appointment" className="btn btn-primary btn-hover1">
                         Appointment
@@ -236,6 +266,7 @@ if (menuClassName === "sub-menu-down") {
                         data-bs-toggle="offcanvas"
                         data-bs-target="#headerSidebar"
                         aria-controls="offcanvasLeft"
+                        aria-label="Open sidebar"
                       >
                         <span></span>
                         <span></span>
@@ -324,7 +355,8 @@ if (menuClassName === "sub-menu-down") {
                 </div>
               </form>
             </div>
- <div className="widget">
+
+            <div className="widget">
               <div className="widget-title">
                 <h4 className="title">Follow Us</h4>
               </div>
@@ -358,6 +390,7 @@ if (menuClassName === "sub-menu-down") {
                 </ul>
               </div>
             </div>
+
           </div>
         </div>
       </header>

@@ -54,7 +54,7 @@ function Team() {
                     </div>
                 </section>
                 <MeetDr />
-                  <Frequently /> 
+                 
             </main>
             <Footer />            
         </>
