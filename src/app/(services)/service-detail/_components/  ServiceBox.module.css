@@ -1,0 +1,194 @@
+/* ServiceBox.module.css — theme: #09BAB3 */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+@media (max-width: 1199px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 575px)  { .grid { grid-template-columns: 1fr; } }
+
+/* ── Card — compact fixed size, no empty gaps ── */
+.card {
+  position: relative;
+  border-radius: 22px;
+  padding: 22px 20px 18px;
+  cursor: pointer;
+  overflow: hidden !important;
+
+  /* Fixed height — tight around content */
+  width: 100%;
+  height: 210px !important;
+  min-height: 210px !important;
+  max-height: 210px !important;
+
+  /* Stack top + bottom with small gap, NO space-between */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+
+  background: #ffffff;
+  border: 1.5px solid rgba(9, 186, 179, 0.12);
+  box-shadow: 0 4px 20px rgba(9, 186, 179, 0.07);
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+              background 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover,
+.cardActive {
+  background: linear-gradient(148deg, #09BAB3 0%, #077a75 100%);
+  border-color: transparent;
+  box-shadow: 0 20px 52px rgba(9, 186, 179, 0.32);
+  transform: translateY(-6px);
+}
+
+/* ── Watermark ── */
+.watermark {
+  position: absolute;
+  bottom: -18px;
+  right: -16px;
+  line-height: 0;
+  pointer-events: none;
+  color: #0a1628;
+  opacity: 0.05;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+.card:hover .watermark,
+.cardActive .watermark {
+  color: #ffffff;
+  opacity: 0.13;
+}
+
+/* ── Top ── */
+.top {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconBox {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(9, 186, 179, 0.09);
+  border: 1.5px solid rgba(9, 186, 179, 0.22);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.card:hover .iconBox,
+.cardActive .iconBox {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.iconSvg {
+  display: block;
+  line-height: 0;
+  color: #09BAB3;
+  transition: color 0.3s ease;
+}
+.card:hover .iconSvg,
+.cardActive .iconSvg {
+  color: #ffffff;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0d1f3c;
+  margin: 0;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+.card:hover .title,
+.cardActive .title {
+  color: #ffffff;
+}
+
+/* ── Description — clamped to 2 lines ── */
+.desc {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.55 !important;
+  color: #1e3a5f !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  z-index: 4 !important;
+  transition: color 0.3s ease;
+}
+.card:hover .desc,
+.cardActive .desc {
+  color: rgba(255, 255, 255, 0.93) !important;
+}
+
+/* ── Bottom — sits right after content, no floating ── */
+.bottom {
+  position: relative;
+  z-index: 4;
+  margin-top: auto; /* pushes to bottom but only uses space it needs */
+}
+
+.divider {
+  height: 0;
+  border: none;
+  border-top: 1.5px dashed rgba(9, 186, 179, 0.18);
+  margin-bottom: 12px;
+  transition: border-color 0.3s ease;
+}
+.card:hover .divider,
+.cardActive .divider {
+  border-top-color: rgba(255, 255, 255, 0.25);
+}
+
+.arrowRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.arrowBtn {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  background: #09BAB3;
+  border: none;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.card:hover .arrowBtn,
+.cardActive .arrowBtn {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1.5px solid rgba(255, 255, 255, 0.38);
+  color: #ffffff;
+}
+.card:hover .arrowBtn:hover {
+  background: rgba(255, 255, 255, 0.32);
+  transform: translateX(3px);
+}

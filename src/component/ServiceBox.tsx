@@ -1,63 +1,57 @@
 "use client";
-
+import s from "../app/(services)/service-detail/_components/  ServiceBox.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { serviceboxdata } from "@/constant/alldata";
 
+
 export default function ServiceBox() {
-  const [active, setActive] = useState<number>(serviceboxdata[0]?.id || 1);
+  const [activeId, setActiveId] = useState<number>(serviceboxdata[0]?.id || 1);
   const router = useRouter();
 
   return (
-    <div className="row service-box-container">
+    <div className={s.grid}>
       {serviceboxdata.map((item) => {
         const Icon = item.icon;
-        const isActive = active === item.id;
+        const isOn = activeId === item.id;
 
         return (
           <div
             key={item.id}
-            className="col-xl-3 col-md-6 m-b30 wow fadeInUp"
+            className={`wow fadeInUp ${s.card} ${isOn ? s.cardActive : ""}`}
             data-wow-delay={item.delay}
             data-wow-duration="0.8s"
+            onMouseEnter={() => setActiveId(item.id)}
+            onClick={() => router.push(`/service-detail/${item.slug}`)}
           >
-            <div
-              className={`icon-bx-wraper style-3 box-hover ${isActive ? "active" : ""}`}
-              onMouseEnter={() => setActive(item.id)}
-              onClick={() => router.push(`/service-detail/${item.slug}`)} // ✅ whole box clickable
-            >
-              <div className="icon-bx-head">
-                <div className="icon-content">
-                  <div className="d-flex align-items-center gap-3">
-                    <div className="icon-bx">
-                      <span className="icon-cell">
-                        <Icon size={36} strokeWidth={2.5} />
-                      </span>
-                    </div>
+            {/* Watermark */}
+            <span className={s.watermark} aria-hidden="true">
+              <Icon size={132} strokeWidth={1.3} />
+            </span>
 
-                    <h3 className="dz-title mb-0" style={{ fontWeight: 700 }}>
-                      {item.title}
-                    </h3>
-                  </div>
-
-                  <p className="mt-3 text-muted" style={{ fontWeight: 500 }}>
-                    {item.description}
-                  </p>
+            {/* TOP */}
+            <div className={s.top}>
+              <div className={s.head}>
+                <div className={s.iconBox}>
+                  <span className={s.iconSvg}>
+                    <Icon size={26} strokeWidth={2.1} />
+                  </span>
                 </div>
-
-                <span className="icon-bg">
-                  <Icon size={120} strokeWidth={2} />
-                </span>
+                <div className={s.title}>{item.title}</div>
               </div>
+              <div className={s.desc}>{item.description}</div>
+            </div>
 
-              <div className="icon-bx-footer">
-                {/* keep arrow link (optional) */}
+            {/* BOTTOM */}
+            <div className={s.bottom}>
+              <div className={s.divider} />
+              <div className={s.arrowRow}>
                 <Link
                   href={`/service-detail/${item.slug}`}
-                  className="btn btn-square btn-primary rounded-circle"
+                  className={s.arrowBtn}
                   aria-label={`Open ${item.title}`}
-                  onClick={(e) => e.stopPropagation()} // ✅ prevent double trigger
+                  onClick={(e) => e.stopPropagation()}
                 >
                   <i className="feather icon-arrow-up-right" />
                 </Link>
